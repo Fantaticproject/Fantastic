@@ -29,123 +29,18 @@ document.querySelectorAll('.card,.feature,.project').forEach(card=>{card.addEven
 
 document.querySelector('[data-form]')?.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(event.target),text=`Olá, Fantastic! Meu nome é ${data.get('nome')}.\nQuero conversar sobre: ${data.get('tipo')}.\n\n${data.get('mensagem')}`;window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank')});
 
-// =========================================================
-// INTERACAO DA PROVA VISUAL DE AUTOMACAO
-// A estrutura do dashboard esta em automacoes.html.
-// =========================================================
-const automationDemo = document.querySelector('[data-automation-demo]');
-
-if (automationDemo) {
-  const periods = {
-    today: {
-      tasks: '248', hours: '12,4h', success: '98,7%', total: '248 execuções',
-      points: [132, 118, 126, 78, 92, 50, 68], steps: [100, 98, 94]
-    },
-    week: {
-      tasks: '1.842', hours: '92h', success: '99,1%', total: '1.842 execuções',
-      points: [140, 104, 116, 62, 84, 38, 54], steps: [100, 99, 97]
-    },
-    month: {
-      tasks: '7.690', hours: '384h', success: '99,4%', total: '7.690 execuções',
-      points: [126, 96, 108, 72, 58, 46, 32], steps: [100, 99, 98]
-    }
-  };
-
-  const xPositions = [20, 105, 192, 278, 365, 452, 540];
-  const chartLine = automationDemo.querySelector('[data-chart-line]');
-  const chartArea = automationDemo.querySelector('[data-chart-area]');
-  const chartDots = automationDemo.querySelector('[data-chart-dots]');
-  const runButton = automationDemo.querySelector('[data-run-automation]');
-  const beforePanel = automationDemo.querySelector('[data-automation-before]');
-  const dashboardPanel = automationDemo.querySelector('[data-automation-after]');
-  const gasparButton = automationDemo.querySelector('[data-gaspar-trigger]');
-  const showBeforeButton = automationDemo.querySelector('[data-show-before]');
-  const processingLabel = automationDemo.querySelector('[data-processing-label]');
-
-  function renderDots(points) {
-    chartDots.innerHTML = points.map((y, index) =>
-      `<circle cx="${xPositions[index]}" cy="${y}" r="5"/>`
-    ).join('');
-  }
-
-  function updateDashboard(periodKey) {
-    const data = periods[periodKey];
-    const linePoints = data.points.map((y, index) => `${xPositions[index]},${y}`).join(' ');
-    const areaPoints = data.points.map((y, index) => `${xPositions[index]},${y}`).join(' L');
-
-    automationDemo.querySelector('[data-kpi="tasks"]').textContent = data.tasks;
-    automationDemo.querySelector('[data-kpi="hours"]').textContent = data.hours;
-    automationDemo.querySelector('[data-kpi="success"]').textContent = data.success;
-    automationDemo.querySelector('[data-chart-total]').textContent = data.total;
-
-    chartLine.setAttribute('points', linePoints);
-    chartArea.setAttribute('d', `M20 155 L${areaPoints} L540 155 Z`);
-    renderDots(data.points);
-
-    data.steps.forEach((value, index) => {
-      automationDemo.querySelector(`[data-step-value="${index}"]`).textContent = `${value}%`;
-      automationDemo.querySelector(`[data-step-bar="${index}"]`).style.width = `${value}%`;
-    });
-  }
-
-  automationDemo.querySelectorAll('[data-period]').forEach(button => {
-    button.addEventListener('click', () => {
-      automationDemo.querySelectorAll('[data-period]').forEach(item => {
-        const isActive = item === button;
-        item.classList.toggle('active', isActive);
-        item.setAttribute('aria-pressed', isActive);
-      });
-      updateDashboard(button.dataset.period);
-    });
-  });
-
-  gasparButton.addEventListener('click', () => {
-    beforePanel.classList.add('is-processing');
-    gasparButton.disabled = true;
-    processingLabel.textContent = 'Lendo a planilha...';
-
-    setTimeout(() => { processingLabel.textContent = 'Validando informações...'; }, 520);
-    setTimeout(() => { processingLabel.textContent = 'Criando indicadores...'; }, 1020);
-    setTimeout(() => {
-      beforePanel.hidden = true;
-      beforePanel.classList.remove('is-processing');
-      dashboardPanel.hidden = false;
-      dashboardPanel.classList.add('is-revealed');
-      gasparButton.disabled = false;
-      updateDashboard('today');
-    }, 1700);
-  });
-
-  showBeforeButton.addEventListener('click', () => {
-    dashboardPanel.hidden = true;
-    dashboardPanel.classList.remove('is-revealed');
-    beforePanel.hidden = false;
-    processingLabel.textContent = 'Lendo a planilha...';
-  });
-
-  runButton.addEventListener('click', () => {
-    dashboardPanel.classList.add('is-running');
-    runButton.disabled = true;
-    runButton.innerHTML = '<span>●</span> Processando dados...';
-    automationDemo.querySelector('[data-run-label]').textContent = 'Em execução';
-
-    automationDemo.querySelectorAll('[data-step-bar]').forEach(bar => bar.style.width = '12%');
-    automationDemo.querySelectorAll('[data-step-value]').forEach(value => value.textContent = '...');
-
-    setTimeout(() => {
-      const selectedPeriod = automationDemo.querySelector('[data-period].active')?.dataset.period || 'today';
-      updateDashboard(selectedPeriod);
-      dashboardPanel.classList.remove('is-running');
-      runButton.disabled = false;
-      runButton.innerHTML = '<span>✓</span> Automação concluída';
-      automationDemo.querySelector('[data-run-label]').textContent = 'Concluído';
-      automationDemo.querySelector('[data-feed-time]').textContent = 'Agora mesmo';
-
-      setTimeout(() => {
-        runButton.innerHTML = '<span>▶</span> Executar novamente';
-      }, 1800);
-    }, 1300);
-  });
-
+// Prova visual interativa da pagina de automacoes.
+const automationPage=document.querySelector('body[data-page="servicos"] .tint-green');
+if(automationPage){
+  const target=document.querySelector('.wide-card');
+  target?.insertAdjacentHTML('afterend',`<section class="automation-proof" aria-labelledby="automation-proof-title"><div class="automation-proof-copy"><span class="eyebrow">PROVA VISUAL · SIMULAÇÃO INTERATIVA</span><h2 id="automation-proof-title">Veja uma rotina<br><span class="green">trabalhando sozinha.</span></h2><p>Este painel simula uma automação que recebe solicitações, valida informações e gera relatórios sem trabalho manual. Troque o período ou execute uma nova rodada para acompanhar os resultados.</p><div class="proof-points"><span><i></i>Dados demonstrativos</span><span><i></i>Atualização em tempo real</span></div></div><div class="automation-dashboard" data-automation-demo><div class="dashboard-top"><div><small>FANTASTIC AUTOMATION</small><strong>Central de processamento</strong></div><span class="dashboard-status"><i></i> Operação ativa</span></div><div class="dashboard-controls" role="group" aria-label="Período da demonstração"><button class="active" type="button" data-period="today" aria-pressed="true">Hoje</button><button type="button" data-period="week" aria-pressed="false">7 dias</button><button type="button" data-period="month" aria-pressed="false">30 dias</button></div><div class="dashboard-kpis" aria-live="polite"><article><small>TAREFAS PROCESSADAS</small><strong data-kpi="tasks">248</strong><span class="positive">↗ 18% no período</span></article><article><small>HORAS ECONOMIZADAS</small><strong data-kpi="hours">12,4h</strong><span>Equivale a 1,5 dia</span></article><article><small>TAXA DE SUCESSO</small><strong data-kpi="success">98,7%</strong><span class="positive">Dentro da meta</span></article></div><div class="dashboard-visuals"><article class="chart-panel"><div class="chart-heading"><div><small>FLUXO AUTOMATIZADO</small><strong>Execuções por horário</strong></div><span data-chart-total>248 execuções</span></div><svg class="line-chart" viewBox="0 0 560 190" role="img" aria-label="Gráfico de execuções da automação"><defs><linearGradient id="automationArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#55dda2" stop-opacity=".38"/><stop offset="100%" stop-color="#55dda2" stop-opacity="0"/></linearGradient></defs><g class="chart-grid"><line x1="20" y1="30" x2="540" y2="30"/><line x1="20" y1="85" x2="540" y2="85"/><line x1="20" y1="140" x2="540" y2="140"/></g><path data-chart-area fill="url(#automationArea)" d="M20 155 L20 132 L105 118 L192 126 L278 78 L365 92 L452 50 L540 68 L540 155 Z"/><polyline data-chart-line points="20,132 105,118 192,126 278,78 365,92 452,50 540,68" fill="none" stroke="#55dda2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><g class="chart-dots" data-chart-dots></g></svg><div class="chart-labels"><span>08h</span><span>10h</span><span>12h</span><span>14h</span><span>16h</span><span>18h</span><span>20h</span></div></article><article class="steps-panel"><div class="chart-heading"><div><small>ETAPAS</small><strong>Processamento</strong></div><span data-run-label>Concluído</span></div><div class="automation-step"><div><span>Dados recebidos</span><b data-step-value="0">100%</b></div><i><em data-step-bar="0" style="width:100%"></em></i></div><div class="automation-step"><div><span>Validações</span><b data-step-value="1">98%</b></div><i><em data-step-bar="1" style="width:98%"></em></i></div><div class="automation-step"><div><span>Relatórios gerados</span><b data-step-value="2">94%</b></div><i><em data-step-bar="2" style="width:94%"></em></i></div><button class="run-automation" type="button" data-run-automation><span>▶</span> Executar automação</button></article></div><div class="dashboard-feed"><span><i></i><b data-feed-time>Agora</b> Relatório consolidado gerado automaticamente</span><small>Nenhuma ação manual necessária</small></div></div></section>`);
+  const automationDemo=document.querySelector('[data-automation-demo]');
+  const periods={today:{tasks:'248',hours:'12,4h',success:'98,7%',total:'248 execuções',points:[132,118,126,78,92,50,68],steps:[100,98,94]},week:{tasks:'1.842',hours:'92h',success:'99,1%',total:'1.842 execuções',points:[140,104,116,62,84,38,54],steps:[100,99,97]},month:{tasks:'7.690',hours:'384h',success:'99,4%',total:'7.690 execuções',points:[126,96,108,72,58,46,32],steps:[100,99,98]}};
+  const xs=[20,105,192,278,365,452,540],line=automationDemo.querySelector('[data-chart-line]'),area=automationDemo.querySelector('[data-chart-area]'),dots=automationDemo.querySelector('[data-chart-dots]');
+  const renderDots=points=>{dots.innerHTML=points.map((y,index)=>`<circle cx="${xs[index]}" cy="${y}" r="5"/>`).join('')};
+  const updateDemo=key=>{const data=periods[key],pointString=data.points.map((y,index)=>`${xs[index]},${y}`).join(' '),areaPath=data.points.map((y,index)=>`${xs[index]},${y}`).join(' L');automationDemo.querySelector('[data-kpi="tasks"]').textContent=data.tasks;automationDemo.querySelector('[data-kpi="hours"]').textContent=data.hours;automationDemo.querySelector('[data-kpi="success"]').textContent=data.success;automationDemo.querySelector('[data-chart-total]').textContent=data.total;line.setAttribute('points',pointString);area.setAttribute('d',`M20 155 L${areaPath} L540 155 Z`);renderDots(data.points);data.steps.forEach((value,index)=>{automationDemo.querySelector(`[data-step-value="${index}"]`).textContent=`${value}%`;automationDemo.querySelector(`[data-step-bar="${index}"]`).style.width=`${value}%`})};
+  automationDemo.querySelectorAll('[data-period]').forEach(button=>button.addEventListener('click',()=>{automationDemo.querySelectorAll('[data-period]').forEach(item=>{const active=item===button;item.classList.toggle('active',active);item.setAttribute('aria-pressed',active)});updateDemo(button.dataset.period)}));
+  const runButton=automationDemo.querySelector('[data-run-automation]');
+  runButton.addEventListener('click',()=>{automationDemo.classList.add('is-running');runButton.disabled=true;runButton.innerHTML='<span>●</span> Processando dados...';automationDemo.querySelector('[data-run-label]').textContent='Em execução';automationDemo.querySelectorAll('[data-step-bar]').forEach(bar=>bar.style.width='12%');automationDemo.querySelectorAll('[data-step-value]').forEach(value=>value.textContent='...');setTimeout(()=>{const active=automationDemo.querySelector('[data-period].active')?.dataset.period||'today';updateDemo(active);automationDemo.classList.remove('is-running');runButton.disabled=false;runButton.innerHTML='<span>✓</span> Automação concluída';automationDemo.querySelector('[data-run-label]').textContent='Concluído';automationDemo.querySelector('[data-feed-time]').textContent='Agora mesmo';setTimeout(()=>runButton.innerHTML='<span>▶</span> Executar novamente',1800)},1300)});
   renderDots(periods.today.points);
 }
