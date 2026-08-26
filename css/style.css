@@ -1,0 +1,969 @@
+/* =========================================================
+   BASE
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8f8f6;
+    color: #171717;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   CORES DE DESTAQUE
+   ========================================================= */
+
+.highlight-blue {
+    color: #2457ff;
+}
+
+.highlight-purple {
+    color: #8b4dff;
+}
+
+.highlight-orange {
+    color: #ff6b2c;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    width: 100%;
+
+    padding: 24px 6vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: rgba(248, 248, 246, 0.9);
+
+    backdrop-filter: blur(16px);
+
+    border-bottom: 1px solid #e8e8e5;
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.nav {
+    display: flex;
+    gap: 32px;
+
+    font-size: 0.9rem;
+}
+
+.nav a {
+    transition: color 0.25s ease;
+}
+
+.nav a:hover,
+.nav .active {
+    color: #2457ff;
+}
+
+
+/* =========================================================
+   MARCADORES LATERAIS DA PÁGINA
+   ========================================================= */
+
+/*
+    Navegação interna da página.
+
+    Funciona como marcadores de livro:
+    cada marcador leva diretamente para uma seção.
+
+    ⚠️ Não confundir com a navegação principal do site.
+*/
+
+.page-bookmarks {
+    position: fixed;
+
+    right: 0;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    z-index: 90;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+/* =========================================================
+   MARCADOR
+   ========================================================= */
+
+.bookmark {
+    width: 48px;
+    height: 105px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e5e2;
+    border-right: none;
+
+    border-radius: 14px 0 0 14px;
+
+    box-shadow:
+        -5px 5px 18px rgba(0, 0, 0, 0.06);
+
+    transition:
+        width 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   TEXTO DOS MARCADORES
+   ========================================================= */
+
+.bookmark span {
+    writing-mode: vertical-rl;
+
+    transform: rotate(180deg);
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #555;
+
+    transition: color 0.25s ease;
+}
+
+
+/* =========================================================
+   EFEITO HOVER
+   ========================================================= */
+
+.bookmark:hover {
+    width: 64px;
+
+    transform: translateX(-4px);
+
+    box-shadow:
+        -8px 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+.bookmark:hover span {
+    color: #171717;
+}
+
+
+/* =========================================================
+   CORES DOS MARCADORES
+   ========================================================= */
+
+.bookmark-blue {
+    border-right: 4px solid #2457ff;
+}
+
+.bookmark-orange {
+    border-right: 4px solid #ff6b2c;
+}
+
+.bookmark-purple {
+    border-right: 4px solid #8b4dff;
+}
+
+.bookmark-pink {
+    border-right: 4px solid #ff4f81;
+}
+
+.bookmark-green {
+    border-right: 4px solid #1f9d55;
+}
+
+
+/* =========================================================
+   SEÇÕES
+   ========================================================= */
+
+section {
+    position: relative;
+
+    padding: 140px 9vw;
+}
+
+.section-label {
+    display: block;
+
+    margin-bottom: 28px;
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #888;
+}
+
+.section-number {
+    position: absolute;
+
+    top: 55px;
+    right: 9vw;
+
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    color: #aaa;
+}
+
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+h1,
+h2 {
+    font-weight: 800;
+}
+
+h1 {
+    max-width: 1050px;
+
+    font-size: clamp(3.5rem, 7vw, 7rem);
+
+    line-height: 0.95;
+
+    letter-spacing: -5px;
+}
+
+h2 {
+    max-width: 1000px;
+
+    font-size: clamp(3rem, 5.5vw, 6rem);
+
+    line-height: 0.98;
+
+    letter-spacing: -4px;
+}
+
+
+/* =========================================================
+   PARÁGRAFOS
+   ========================================================= */
+
+.section-intro {
+    max-width: 680px;
+
+    margin-top: 38px;
+
+    font-size: 1.15rem;
+
+    line-height: 1.8;
+
+    color: #5f5f5c;
+}
+
+.hero-text {
+    max-width: 720px;
+
+    margin-top: 42px;
+
+    font-size: 1.25rem;
+
+    line-height: 1.8;
+
+    color: #5d5d59;
+}
+
+.hero-text strong {
+    color: #171717;
+}
+
+.showcase-content > p {
+    max-width: 650px;
+
+    margin-top: 38px;
+
+    font-size: 1.2rem;
+
+    line-height: 1.8;
+
+    color: #555;
+}
+
+.closing-text {
+    max-width: 760px;
+
+    margin-top: 65px;
+
+    font-size: 1.2rem;
+
+    line-height: 1.8;
+
+    color: #555;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    min-height: 85vh;
+
+    display: flex;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero-content {
+    max-width: 1050px;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+.hero-decoration {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+.decoration-one {
+    width: 350px;
+    height: 350px;
+
+    right: 8%;
+    top: 20%;
+
+    background: #dce5ff;
+
+    opacity: 0.65;
+
+    filter: blur(4px);
+}
+
+.decoration-two {
+    width: 170px;
+    height: 170px;
+
+    right: 28%;
+    bottom: 10%;
+
+    background: #f0ddff;
+
+    opacity: 0.65;
+
+    filter: blur(4px);
+}
+
+
+/* =========================================================
+   SHOWCASE
+   ========================================================= */
+
+.showcase-section {
+    background: #ffffff;
+}
+
+.showcase-content {
+    max-width: 1050px;
+}
+
+.visual-placeholder {
+    width: 100%;
+
+    min-height: 400px;
+
+    margin-top: 70px;
+
+    border-radius: 30px;
+
+    background: #eeeeeb;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.visual-placeholder span {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+
+    font-weight: 900;
+
+    color: #d0d0cc;
+}
+
+.visual-placeholder small {
+    color: #999;
+}
+
+
+/* =========================================================
+   EMPRESAS
+   ========================================================= */
+
+.business-section {
+    background: #f8f8f6;
+}
+
+.business-grid {
+    margin-top: 75px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 16px;
+}
+
+.business-card {
+    min-height: 210px;
+
+    padding: 30px;
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #e7e7e3;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.business-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, 0.07);
+}
+
+.business-card span {
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    color: #aaa;
+}
+
+.business-card h3 {
+    max-width: 190px;
+
+    font-size: 1.4rem;
+
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   SISTEMAS
+   ========================================================= */
+
+.systems-section {
+    background: #ffffff;
+}
+
+.big-statement {
+    margin-top: 100px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    font-size: clamp(3rem, 6vw, 6rem);
+
+    line-height: 0.95;
+
+    letter-spacing: -4px;
+}
+
+.big-statement strong {
+    color: #8b4dff;
+}
+
+.adaptation-box {
+    margin-top: 80px;
+
+    padding: 65px;
+
+    border-radius: 32px;
+
+    background: #f0eaff;
+}
+
+.adaptation-box p {
+    font-size: clamp(2rem, 4.5vw, 4.5rem);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
+}
+
+
+/* =========================================================
+   IDEIAS
+   ========================================================= */
+
+.ideas-section {
+    background: #f8f8f6;
+}
+
+.ideas-grid {
+    margin-top: 75px;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+.idea-card {
+    min-height: 270px;
+
+    padding: 32px;
+
+    border-radius: 28px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.idea-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 35px rgba(0, 0, 0, 0.07);
+}
+
+.idea-card span {
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    color: #aaa;
+}
+
+.idea-card h3 {
+    max-width: 420px;
+
+    font-size: 1.8rem;
+
+    line-height: 1.15;
+}
+
+.idea-statement {
+    margin-top: 90px;
+
+    font-size: clamp(2rem, 4vw, 4rem);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+}
+
+.idea-statement p + p {
+    margin-top: 12px;
+}
+
+
+/* =========================================================
+   EXCEL
+   ========================================================= */
+
+.excel-section {
+    min-height: 90vh;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7vw;
+
+    background: #ffffff;
+
+    overflow: hidden;
+}
+
+.excel-content {
+    flex: 1;
+
+    max-width: 850px;
+}
+
+.excel-highlight {
+    display: inline-block;
+
+    color: #1f9d55;
+
+    font-weight: 900;
+
+    position: relative;
+}
+
+.excel-highlight::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: -5px;
+
+    width: 100%;
+    height: 7px;
+
+    border-radius: 10px;
+
+    background: #b9efca;
+
+    z-index: -1;
+}
+
+.excel-statement {
+    margin-top: 60px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    font-size: 1.15rem;
+
+    line-height: 1.7;
+}
+
+.excel-statement strong {
+    font-size: 1.6rem;
+
+    color: #1f9d55;
+}
+
+
+/* =========================================================
+   GASPAR
+   ========================================================= */
+
+.gaspar-container {
+    width: 340px;
+
+    min-width: 340px;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+.gaspar-placeholder {
+    width: 300px;
+
+    height: 390px;
+
+    border-radius: 150px 150px 35px 35px;
+
+    background: #e7f8ed;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.gaspar-placeholder:hover {
+    transform: translateY(-12px) rotate(2deg);
+
+    box-shadow:
+        0 25px 45px rgba(31, 157, 85, 0.12);
+}
+
+.gaspar-placeholder span {
+    font-size: 2.7rem;
+
+    font-weight: 900;
+
+    color: #1f9d55;
+}
+
+.gaspar-placeholder small {
+    color: #6a9679;
+}
+
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+
+.final-section {
+    min-height: 75vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    background: #f8f8f6;
+}
+
+.final-brand {
+    font-size: 0.75rem;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    color: #888;
+}
+
+.final-section h2 {
+    margin-top: 25px;
+}
+
+.final-section p {
+    margin-top: 35px;
+
+    font-size: 1.15rem;
+
+    color: #777;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    padding: 45px 9vw;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-top: 1px solid #e5e5e2;
+
+    color: #777;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    section {
+        padding: 110px 7vw;
+    }
+
+    .business-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .excel-section {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding-top: 110px;
+
+        padding-bottom: 110px;
+    }
+
+    .gaspar-container {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — CELULAR
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 20px 6vw;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    section {
+        padding: 90px 6vw;
+    }
+
+    .section-number {
+        top: 30px;
+
+        right: 6vw;
+    }
+
+    h1 {
+        font-size: clamp(3rem, 15vw, 5rem);
+
+        letter-spacing: -3px;
+    }
+
+    h2 {
+        font-size: clamp(2.7rem, 13vw, 4.5rem);
+
+        letter-spacing: -2px;
+    }
+
+    .hero {
+        min-height: 75vh;
+    }
+
+    .hero-text {
+        font-size: 1.1rem;
+
+        line-height: 1.75;
+    }
+
+    .section-intro,
+    .showcase-content > p,
+    .closing-text {
+        font-size: 1.05rem;
+
+        line-height: 1.75;
+    }
+
+    .business-grid,
+    .ideas-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .business-card {
+        min-height: 180px;
+    }
+
+    .big-statement {
+        font-size: clamp(2.8rem, 13vw, 5rem);
+    }
+
+    .adaptation-box {
+        padding: 40px 25px;
+    }
+
+    .adaptation-box p {
+        font-size: 2.5rem;
+    }
+
+    .idea-statement {
+        font-size: 2.5rem;
+    }
+
+    .gaspar-placeholder {
+        width: 260px;
+
+        height: 340px;
+    }
+
+    .footer {
+        flex-direction: column;
+
+        gap: 18px;
+
+        align-items: flex-start;
+    }
+
+
+    /* =====================================================
+       MARCADORES NO CELULAR
+       ===================================================== */
+
+    .page-bookmarks {
+        right: 0;
+        left: auto;
+
+        gap: 6px;
+    }
+
+    .bookmark {
+        width: 36px;
+        height: 82px;
+
+        border-radius: 10px 0 0 10px;
+
+        border-right: none;
+    }
+
+    .bookmark:hover {
+        width: 48px;
+
+        transform: translateX(-3px);
+    }
+
+    .bookmark span {
+        font-size: 0.62rem;
+    }
+
+}

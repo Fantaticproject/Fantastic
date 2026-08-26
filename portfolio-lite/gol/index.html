@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#03070d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<title>Gol G2 HUD</title>
+<style>
+:root{
+  --bg:#03070d;
+  --glass:#02050a;
+  --line:#1e2a36;
+  --soft:#7e8a97;
+  --white:#f4f7fb;
+  --blue:#1da2ff;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;overflow:hidden;
+  background:#000;color:var(--white);
+  font-family:Arial,Helvetica,sans-serif;
+}
+body{
+  display:flex;align-items:center;justify-content:center;
+  padding:max(8px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right))
+          max(8px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));
+}
+.hud-shell{
+  position:relative;
+  width:min(1000px,98vw);
+  height:min(590px,96vh);
+  padding:22px 24px 30px;
+  border-radius:44px 32px 24px 34px;
+  background:linear-gradient(155deg,#171d24 0%,#090d12 38%,#131920 100%);
+  border:1px solid #222a33;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    inset 0 -22px 36px rgba(0,0,0,.56),
+    0 26px 70px rgba(0,0,0,.7);
+}
+.hud-shell:before{
+  content:"";
+  position:absolute;
+  left:4%;right:7%;top:-10px;height:38px;
+  border-radius:70% 70% 0 0;
+  background:linear-gradient(#222931,#0b0f14);
+  box-shadow:0 8px 18px rgba(0,0,0,.45);
+}
+.screen{
+  position:relative;
+  width:100%;height:100%;
+  display:grid;
+  grid-template-columns:1.34fr .78fr;
+  gap:14px;
+  overflow:hidden;
+  border-radius:32px 20px 16px 26px;
+  border:1px solid #27323e;
+  background:
+    radial-gradient(circle at 31% 43%,rgba(0,112,255,.12),transparent 36%),
+    linear-gradient(150deg,#03080e,#010307 76%);
+  box-shadow:inset 0 0 48px rgba(0,0,0,.92);
+}
+.left{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  min-width:0;min-height:0;
+}
+.dial{
+  position:relative;
+  width:min(73vh,510px);
+  max-width:95%;
+  aspect-ratio:1;
+  border-radius:50%;
+}
+.arc{
+  position:absolute;inset:0;border-radius:50%;
+  background:
+    conic-gradient(from 220deg,
+      transparent 0deg 8deg,
+      #0a72c4 8deg 88deg,
+      #1da2ff 88deg 214deg,
+      #19b9ff 214deg 242deg,
+      #ffb11c 242deg 265deg,
+      #ff5e25 265deg 287deg,
+      #ff322d 287deg 310deg,
+      transparent 310deg 360deg);
+  -webkit-mask:radial-gradient(circle,transparent 0 70%,#000 71% 78%,transparent 79%);
+  mask:radial-gradient(circle,transparent 0 70%,#000 71% 78%,transparent 79%);
+  filter:drop-shadow(0 0 8px rgba(25,164,255,.28));
+}
+.ticks{
+  position:absolute;inset:1%;border-radius:50%;
+  background:
+    repeating-conic-gradient(from 220deg,
+      rgba(116,214,255,.85) 0deg 1deg,
+      transparent 1deg 10deg);
+  -webkit-mask:radial-gradient(circle,transparent 0 79%,#000 80% 83%,transparent 84%);
+  mask:radial-gradient(circle,transparent 0 79%,#000 80% 83%,transparent 84%);
+  opacity:.72;
+}
+.dial-inner{
+  position:absolute;inset:23%;
+  border-radius:50%;
+  border:1.5px solid rgba(47,111,218,.72);
+  background:radial-gradient(circle,#07101b 0%,#03070c 76%);
+  box-shadow:inset 0 0 28px rgba(0,0,0,.88),0 0 26px rgba(19,105,255,.15);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:3;
+}
+.speed{
+  font-size:clamp(82px,14vw,150px);
+  line-height:.82;
+  font-weight:800;
+  letter-spacing:-.07em;
+  font-variant-numeric:tabular-nums;
+}
+.unit{
+  margin-top:14px;
+  font-size:clamp(16px,2.2vw,26px);
+  font-weight:800;
+  letter-spacing:.13em;
+}
+.gps-status{
+  margin-top:11px;
+  font-size:11px;
+  color:var(--soft);
+  letter-spacing:.08em;
+}
+.needle{
+  position:absolute;
+  left:50%;top:50%;
+  width:3px;height:38%;
+  transform-origin:50% 100%;
+  transform:translate(-50%,-100%) rotate(-130deg);
+  background:linear-gradient(to top,#72808d 0 58%,#ffffff 58% 100%);
+  border-radius:3px;
+  z-index:4;
+  filter:drop-shadow(0 0 5px rgba(255,255,255,.34));
+}
+.hub{
+  position:absolute;
+  left:50%;top:50%;
+  width:13px;height:13px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:#edf6ff;border:2px solid #16212c;z-index:5;
+}
+.labels span{
+  position:absolute;
+  font-size:clamp(11px,1.65vw,19px);
+  color:#cfe3f4;
+  transform:translate(-50%,-50%);
+  z-index:2;
+}
+.l0{left:18%;top:75%}.l20{left:9%;top:53%}.l40{left:15%;top:29%}
+.l60{left:34%;top:12%}.l80{left:57%;top:8%}.l100{left:78%;top:17%}
+.l120{left:91%;top:38%}.l140{left:92%;top:64%}.l160{left:80%;top:84%}
+.scale-title{
+  position:absolute;top:18%;left:50%;transform:translateX(-50%);
+  color:#9aa9b8;font-size:11px;line-height:1.05;text-align:center;z-index:2;
+  letter-spacing:.05em;
+}
+.right{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:24px 28px 72px 10px;
+}
+.radio{
+  border-top:1px solid #263341;
+  border-bottom:1px solid #263341;
+  padding:24px 0;
+}
+.radio-label{
+  color:#8392a1;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  margin-bottom:12px;
+}
+.marquee{
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  min-height:62px;
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+}
+.marquee-track{
+  display:inline-flex;
+  align-items:center;
+  gap:56px;
+  min-width:max-content;
+  animation:scroll 13s linear infinite;
+}
+.marquee-text{
+  font-size:clamp(28px,4.5vw,52px);
+  font-weight:300;
+  color:#f4f7fb;
+  text-shadow:0 0 12px rgba(29,162,255,.13);
+}
+@keyframes scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(calc(-50% - 28px))}
+}
+.radio-hint{
+  color:#5f6d7b;
+  font-size:10px;
+  margin-top:10px;
+  letter-spacing:.08em;
+}
+.bottom-info{
+  position:absolute;
+  right:28px;
+  bottom:28px;
+  display:flex;
+  align-items:flex-end;
+  gap:34px;
+  z-index:4;
+}
+.info-block{text-align:right}
+.info-label{
+  color:#7e8b98;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  margin-bottom:5px;
+}
+.clock,.battery{
+  font-size:clamp(27px,4vw,46px);
+  font-weight:300;
+  font-variant-numeric:tabular-nums;
+}
+.battery small{
+  font-size:.37em;
+  margin-left:3px;
+  color:#cbd5df;
+}
+.bluebar{
+  position:absolute;left:5%;right:5%;bottom:6px;height:9px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#0a67c8,#159dff,#48d0ff,#159dff,#0a67c8);
+  box-shadow:0 0 14px rgba(21,157,255,.72);
+}
+.fullscreen{
+  position:absolute;right:12px;top:12px;z-index:10;
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid #314152;background:rgba(7,12,18,.75);
+  color:#d7e1e9;font-size:17px;
+}
+.start,.song-dialog{
+  position:fixed;inset:0;z-index:20;
+  background:rgba(2,5,9,.96);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.card{
+  width:min(440px,100%);
+  padding:24px;
+  border:1px solid #25313d;
+  border-radius:18px;
+  background:#080d13;
+  text-align:center;
+}
+.card h1{margin:0 0 9px;font-size:26px}
+.card p{margin:0;color:#8c99a7;line-height:1.45;font-size:14px}
+.card button{
+  width:100%;height:50px;margin-top:18px;
+  border:0;border-radius:12px;
+  background:linear-gradient(90deg,#118ae8,#32c5ff);
+  color:#03101a;font-weight:900;letter-spacing:.07em;
+}
+.song-input{
+  width:100%;
+  height:50px;
+  margin-top:16px;
+  border-radius:10px;
+  border:1px solid #2d3b49;
+  background:#05090e;
+  color:#fff;
+  padding:0 14px;
+  font-size:16px;
+  outline:none;
+}
+.song-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.song-actions .cancel{background:#141b23;color:#aeb9c4}
+.hidden{display:none!important}
+@media(max-width:720px) and (orientation:portrait){
+  .hud-shell{height:100%;padding:12px 12px 24px;border-radius:26px}
+  .screen{grid-template-columns:1fr;grid-template-rows:1.25fr .75fr}
+  .dial{width:min(88vw,470px)}
+  .right{padding:8px 22px 96px}
+  .radio{padding:18px 0}
+  .bottom-info{left:24px;right:24px;justify-content:space-between}
+}
+</style>
+<link rel="stylesheet" href="../lite-shell.css"></head>
+<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="fantastic-lite-label">VERSÃO LITE · SEM DADOS REAIS</span>
+<div class="hud-shell">
+  <button class="fullscreen" id="fullscreen">⛶</button>
+
+  <div class="screen">
+    <section class="left">
+      <div class="dial">
+        <div class="arc"></div>
+        <div class="ticks"></div>
+
+        <div class="labels">
+          <span class="l0">0</span>
+          <span class="l20">20</span>
+          <span class="l40">40</span>
+          <span class="l60">60</span>
+          <span class="l80">80</span>
+          <span class="l100">100</span>
+          <span class="l120">120</span>
+          <span class="l140">140</span>
+          <span class="l160">160</span>
+        </div>
+
+        <div class="scale-title">KM/H</div>
+        <div class="needle" id="needle"></div>
+        <div class="hub"></div>
+
+        <div class="dial-inner">
+          <div class="speed" id="speed">0</div>
+          <div class="unit">KM/H</div>
+          <div class="gps-status" id="gpsStatus">AGUARDANDO GPS</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="right">
+      <div class="radio">
+        <div class="radio-label">Agora tocando</div>
+        <div class="marquee" id="marquee">
+          <div class="marquee-track">
+            <span class="marquee-text songText">TOQUE PARA INFORMAR A MÚSICA</span>
+            <span class="marquee-text songText">TOQUE PARA INFORMAR A MÚSICA</span>
+          </div>
+        </div>
+        <div class="radio-hint">TOQUE NO LETREIRO PARA ALTERAR</div>
+      </div>
+    </aside>
+
+    <div class="bottom-info">
+      <div class="info-block">
+        <div class="info-label">Bateria</div>
+        <div class="battery" id="battery">—<small>%</small></div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Hora</div>
+        <div class="clock" id="clock">--:--</div>
+      </div>
+    </div>
+
+    <div class="bluebar"></div>
+  </div>
+</div>
+
+<div class="start" id="start">
+  <div class="card">
+    <h1>Gol G2 HUD</h1>
+    <p>Velocímetro por GPS, escala de 0 a 160 km/h, hora, bateria e letreiro de música estilo rádio.</p>
+    <button id="startBtn">INICIAR PAINEL</button>
+  </div>
+</div>
+
+<div class="song-dialog hidden" id="songDialog">
+  <div class="card">
+    <h1>Música tocando</h1>
+    <p>Digite o nome da música e do artista. O texto ficará salvo neste celular.</p>
+    <input class="song-input" id="songInput" maxlength="100" placeholder="Ex.: Só os Loucos Sabem — Charlie Brown Jr.">
+    <div class="song-actions">
+      <button class="cancel" id="cancelSong">CANCELAR</button>
+      <button id="saveSong">SALVAR</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  let lastPos = null;
+  let targetAngle = -130;
+  let currentAngle = -130;
+  let wakeLock = null;
+
+  function updateClock(){
+    $('clock').textContent = new Date().toLocaleTimeString('pt-BR',{
+      hour:'2-digit',minute:'2-digit'
+    });
+  }
+  updateClock();
+  setInterval(updateClock,1000);
+
+  function haversine(a,b){
+    const R=6371000, rad=v=>v*Math.PI/180;
+    const dLat=rad(b.lat-a.lat), dLon=rad(b.lon-a.lon);
+    const q=Math.sin(dLat/2)**2+
+      Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLon/2)**2;
+    return 2*R*Math.asin(Math.sqrt(q));
+  }
+
+  function speedToAngle(kmh){
+    const limited=Math.max(0,Math.min(kmh,160));
+    return -130+(limited/160)*260;
+  }
+
+  function animateNeedle(){
+    currentAngle += (targetAngle-currentAngle)*0.12;
+    $('needle').style.transform=`translate(-50%,-100%) rotate(${currentAngle}deg)`;
+    requestAnimationFrame(animateNeedle);
+  }
+  animateNeedle();
+
+  function startGPS(){
+    if(!navigator.geolocation){
+      $('gpsStatus').textContent='GPS INDISPONÍVEL';
+      return;
+    }
+
+    navigator.geolocation.watchPosition(pos=>{
+      const c=pos.coords;
+      let kmh=0;
+
+      if(typeof c.speed==='number' && c.speed>=0){
+        kmh=c.speed*3.6;
+      }else if(lastPos){
+        const d=haversine(lastPos,{lat:c.latitude,lon:c.longitude});
+        const dt=(pos.timestamp-lastPos.time)/1000;
+        if(dt>0) kmh=(d/dt)*3.6;
+      }
+
+      if(kmh<2.5) kmh=0;
+
+      $('speed').textContent=Math.round(kmh);
+      targetAngle=speedToAngle(kmh);
+      $('gpsStatus').textContent='GPS ATIVO';
+
+      lastPos={
+        lat:c.latitude,
+        lon:c.longitude,
+        time:pos.timestamp
+      };
+    },()=>{
+      $('gpsStatus').textContent='PERMITA O GPS';
+    },{
+      enableHighAccuracy:true,
+      maximumAge:500,
+      timeout:15000
+    });
+  }
+
+  async function setupBattery(){
+    try{
+      if(!navigator.getBattery) return;
+      const battery=await navigator.getBattery();
+
+      const draw=()=>{
+        $('battery').innerHTML=
+          Math.round(battery.level*100)+
+          '<small>%'+(battery.charging?' ⚡':'')+'</small>';
+      };
+
+      draw();
+      battery.addEventListener('levelchange',draw);
+      battery.addEventListener('chargingchange',draw);
+    }catch(e){}
+  }
+
+  function setSong(text){
+    const clean=(text||'').trim() || 'TOQUE PARA INFORMAR A MÚSICA';
+    document.querySelectorAll('.songText').forEach(el=>{
+      el.textContent=clean.toUpperCase();
+    });
+    localStorage.setItem('golG2CurrentSong',clean);
+  }
+
+  const savedSong=localStorage.getItem('golG2CurrentSong');
+  if(savedSong) setSong(savedSong);
+
+  $('marquee').addEventListener('click',()=>{
+    $('songInput').value=localStorage.getItem('golG2CurrentSong') || '';
+    $('songDialog').classList.remove('hidden');
+    setTimeout(()=>$('songInput').focus(),50);
+  });
+
+  $('cancelSong').addEventListener('click',()=>{
+    $('songDialog').classList.add('hidden');
+  });
+
+  $('saveSong').addEventListener('click',()=>{
+    setSong($('songInput').value);
+    $('songDialog').classList.add('hidden');
+  });
+
+  $('songInput').addEventListener('keydown',e=>{
+    if(e.key==='Enter') $('saveSong').click();
+  });
+
+  async function requestWakeLock(){
+    try{
+      wakeLock=await navigator.wakeLock?.request('screen');
+    }catch(e){}
+  }
+
+  async function begin(){
+    $('start').classList.add('hidden');
+    startGPS();
+    setupBattery();
+    requestWakeLock();
+  }
+
+  $('startBtn').addEventListener('click',begin);
+
+  $('fullscreen').addEventListener('click',async()=>{
+    try{
+      if(!document.fullscreenElement){
+        await document.documentElement.requestFullscreen();
+      }else{
+        await document.exitFullscreen();
+      }
+    }catch(e){}
+  });
+
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState==='visible') requestWakeLock();
+  });
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+  }
+})();
+</script>
+</body>
+</html>

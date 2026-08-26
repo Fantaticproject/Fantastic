@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Currículo profissional de Fantastic Studio, Programador de Obras e profissional de planejamento.">
+  <title>Fantastic Studio | Programador de Obras</title>
+  <style>
+    :root{
+      --ink:#172033;
+      --muted:#5f6b7a;
+      --line:#dfe5ec;
+      --soft:#f4f7fa;
+      --accent:#155eef;
+      --accent-dark:#0f3fa8;
+      --paper:#ffffff;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:#e9eef4;
+      font-family:Arial, Helvetica, sans-serif;
+      line-height:1.5;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .toolbar{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:10;
+    }
+
+    .print-button{
+      border:0;
+      border-radius:10px;
+      padding:13px 18px;
+      background:var(--accent);
+      color:#fff;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 10px 28px rgba(21,94,239,.28);
+      transition:transform .2s ease, background .2s ease;
+    }
+
+    .print-button:hover{
+      background:var(--accent-dark);
+      transform:translateY(-2px);
+    }
+
+    .resume{
+      width:min(1080px, calc(100% - 32px));
+      margin:32px auto;
+      background:var(--paper);
+      box-shadow:0 18px 50px rgba(23,32,51,.12);
+      display:grid;
+      grid-template-columns:300px 1fr;
+      overflow:hidden;
+    }
+
+    .sidebar{
+      background:#172033;
+      color:#fff;
+      padding:42px 30px;
+    }
+
+    .name-mobile{display:none}
+
+    .sidebar-section{margin-top:34px}
+    .sidebar-section:first-child{margin-top:0}
+
+    .sidebar h2{
+      margin:0 0 14px;
+      padding-bottom:9px;
+      border-bottom:1px solid rgba(255,255,255,.2);
+      color:#fff;
+      font-size:13px;
+      letter-spacing:1.4px;
+      text-transform:uppercase;
+    }
+
+    .contact-list,
+    .tag-list,
+    .education-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+    }
+
+    .contact-list li{
+      margin:0 0 12px;
+      font-size:13.5px;
+      color:#e9eef7;
+      overflow-wrap:anywhere;
+    }
+
+    .contact-label{
+      display:block;
+      margin-bottom:2px;
+      color:#9fb3d1;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+    }
+
+    .tag-list{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .tag-list li{
+      padding:7px 9px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:6px;
+      background:rgba(255,255,255,.06);
+      color:#f7f9fc;
+      font-size:12px;
+    }
+
+    .education-list li{margin-bottom:18px}
+    .education-list strong{
+      display:block;
+      color:#fff;
+      font-size:13.5px;
+      line-height:1.35;
+    }
+    .education-list span{
+      display:block;
+      margin-top:4px;
+      color:#aebcd1;
+      font-size:12px;
+    }
+
+    .main-content{
+      padding:46px 48px 44px;
+    }
+
+    .hero{
+      padding-bottom:28px;
+      border-bottom:2px solid var(--accent);
+    }
+
+    .hero h1{
+      margin:0;
+      color:var(--ink);
+      font-size:38px;
+      line-height:1.08;
+      letter-spacing:-1.2px;
+    }
+
+    .hero .role{
+      margin:10px 0 0;
+      color:var(--accent);
+      font-size:17px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+
+    .section{margin-top:30px}
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:0 0 18px;
+      color:var(--ink);
+      font-size:14px;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+    }
+
+    .section-title::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:var(--line);
+    }
+
+    .summary{
+      margin:0;
+      color:#334155;
+      font-size:14px;
+      text-align:justify;
+    }
+
+    .experience{
+      position:relative;
+      padding-left:22px;
+      margin-bottom:25px;
+    }
+
+    .experience::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:6px;
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 0 0 4px #eaf0ff;
+    }
+
+    .experience::after{
+      content:"";
+      position:absolute;
+      left:4px;
+      top:20px;
+      bottom:-22px;
+      width:1px;
+      background:var(--line);
+    }
+
+    .experience:last-child{margin-bottom:0}
+    .experience:last-child::after{display:none}
+
+    .job-head{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .job-title{
+      margin:0;
+      font-size:16px;
+      line-height:1.3;
+    }
+
+    .company{
+      margin:4px 0 0;
+      color:var(--accent-dark);
+      font-size:13.5px;
+      font-weight:700;
+    }
+
+    .period{
+      flex:0 0 auto;
+      margin-top:1px;
+      padding:5px 8px;
+      border-radius:5px;
+      background:var(--soft);
+      color:var(--muted);
+      font-size:11.5px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    .experience ul{
+      margin:11px 0 0;
+      padding-left:18px;
+      color:#3f4b5c;
+      font-size:13.5px;
+    }
+
+    .experience li{margin-bottom:6px}
+
+    .competency-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:10px 18px;
+    }
+
+    .competency{
+      padding:11px 13px;
+      border-left:3px solid var(--accent);
+      background:var(--soft);
+      color:#334155;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    @media (max-width:800px){
+      .resume{
+        width:min(720px, calc(100% - 20px));
+        grid-template-columns:1fr;
+        margin:10px auto 82px;
+      }
+      .sidebar{padding:28px 24px}
+      .name-mobile{display:block;margin-bottom:28px}
+      .name-mobile h1{margin:0;font-size:28px}
+      .name-mobile p{margin:6px 0 0;color:#9fbdf8;font-weight:700}
+      .main-content{padding:30px 24px}
+      .hero{display:none}
+      .sidebar-section{margin-top:25px}
+      .competency-grid{grid-template-columns:1fr}
+      .job-head{display:block}
+      .period{display:inline-block;margin-top:8px}
+    }
+
+    @page{size:A4;margin:0}
+
+    @media print{
+      body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .toolbar{display:none!important}
+      .resume{
+        width:210mm;
+        min-height:297mm;
+        margin:0;
+        box-shadow:none;
+        grid-template-columns:61mm 1fr;
+      }
+      .sidebar{padding:13mm 7mm}
+      .main-content{padding:13mm 11mm 10mm}
+      .hero h1{font-size:29px}
+      .section{margin-top:20px}
+      .experience{margin-bottom:18px}
+      .experience::after{bottom:-16px}
+      .experience ul{font-size:11.4px;line-height:1.42}
+      .summary{font-size:11.7px;line-height:1.45}
+      .job-title{font-size:13.5px}
+      .company{font-size:11.5px}
+      .period{font-size:9.5px}
+      .sidebar h2{font-size:10.5px}
+      .contact-list li,.education-list strong{font-size:10.5px}
+      .education-list span,.tag-list li{font-size:9.5px}
+      .sidebar-section{margin-top:25px}
+      .section-title{font-size:11.5px;margin-bottom:13px}
+      .competency{font-size:10.5px;padding:8px 10px}
+    }
+  </style>
+<link rel="stylesheet" href="../lite-shell.css"></head>
+<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="fantastic-lite-label">VERSÃO LITE · SEM DADOS REAIS</span>
+  <div class="toolbar">
+    <button class="print-button" type="button" onclick="window.print()">Salvar em PDF</button>
+  </div>
+
+  <main class="resume">
+    <aside class="sidebar">
+      <div class="name-mobile">
+        <h1>FANTASTIC STUDIO</h1>
+        <p>Programador de Obras</p>
+      </div>
+
+      <section class="sidebar-section">
+        <h2>Contato</h2>
+        <ul class="contact-list">
+          <li><span class="contact-label">Telefone</span><a href="../../contato.html" target="_blank" rel="noopener">Contato pela Fantastic</a></li>
+          <li><span class="contact-label">E-mail</span><a href="#">contato@fantastic.demo</a></li>
+          <li><span class="contact-label">Localização</span>Itaquaquecetuba, SP</li>
+          <li><span class="contact-label">Nascimento</span>26 de agosto de 2003</li>
+        </ul>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Ferramentas</h2>
+        <ul class="tag-list">
+          <li>Excel Avançado</li>
+          <li>Power BI</li>
+          <li>Power Query</li>
+          <li>SAP</li>
+          <li>Python</li>
+          <li>VBA</li>
+          <li>HTML</li>
+          <li>JavaScript</li>
+          <li>Pacote Office</li>
+        </ul>
+      </section>
+
+      <section class="sidebar-section">
+        <h2>Formação</h2>
+        <ul class="education-list">
+          <li>
+            <strong>Análise e Desenvolvimento de Sistemas</strong>
+            <span>Nível superior · 2023–2025</span>
+          </li>
+          <li>
+            <strong>Eletricista de Redes</strong>
+            <span>SENAI · 2022</span>
+          </li>
+          <li>
+            <strong>Eletricista de Manutenção</strong>
+            <span>2020–2021</span>
+          </li>
+          <li>
+            <strong>Ensino Médio Completo</strong>
+            <span>2019–2021</span>
+          </li>
+        </ul>
+      </section>
+    </aside>
+
+    <section class="main-content">
+      <header class="hero">
+        <h1>FANTASTIC STUDIO</h1>
+        <p class="role">Programador de Obras | Planejamento e Controle</p>
+      </header>
+
+      <section class="section">
+        <h2 class="section-title">Perfil profissional</h2>
+        <p class="summary">
+          Profissional de planejamento com experiência em programação e acompanhamento de obras de distribuição de energia elétrica, controle de equipes, prazos e recursos. Atua na organização e análise de dados, construção de indicadores, desenvolvimento de dashboards e automação de processos. Possui domínio de Excel avançado, Power BI, Power Query e SAP, além de conhecimentos em Python, VBA e desenvolvimento de soluções web para ganho de produtividade, padronização e redução de retrabalho.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Experiência profissional</h2>
+
+        <article class="experience">
+          <div class="job-head">
+            <div>
+              <h3 class="job-title">Programador de Obras</h3>
+              <p class="company">B&amp;Q ENERGIA</p>
+            </div>
+            <span class="period">06/2026 – Atual</span>
+          </div>
+          <ul>
+            <li>Planejamento, programação e acompanhamento de obras de distribuição de energia, considerando prioridades operacionais, disponibilidade de equipes, recursos e prazos.</li>
+            <li>Desenvolvimento de dashboards gerenciais, indicadores e controles para suporte à tomada de decisão e acompanhamento da execução.</li>
+            <li>Gestão e tratamento de bases de dados utilizando Excel avançado, Power Query e SAP.</li>
+            <li>Automação de rotinas e criação de ferramentas internas com Python, VBA, HTML e JavaScript, reduzindo atividades manuais e retrabalho.</li>
+            <li>Interface com equipes de campo, engenharia e áreas de apoio para alinhamento das programações e cumprimento das entregas.</li>
+          </ul>
+        </article>
+
+        <article class="experience">
+          <div class="job-head">
+            <div>
+              <h3 class="job-title">Programador de Obras</h3>
+              <p class="company">PSE</p>
+            </div>
+            <span class="period">01/2025 – 04/2025</span>
+          </div>
+          <ul>
+            <li>Programação e acompanhamento de obras, com controle de cronogramas, equipes e prioridades operacionais.</li>
+            <li>Organização de dados e elaboração de relatórios para apoio ao planejamento e à execução dos serviços.</li>
+            <li>Atualização de controles em Excel e sistemas corporativos, garantindo maior confiabilidade das informações.</li>
+          </ul>
+        </article>
+
+        <article class="experience">
+          <div class="job-head">
+            <div>
+              <h3 class="job-title">Auxiliar de Planejamento</h3>
+              <p class="company">MANSERV</p>
+            </div>
+            <span class="period">2023 – 2024</span>
+          </div>
+          <ul>
+            <li>Apoio ao planejamento de atividades, controle de estoque, inventários e atualização de indicadores.</li>
+            <li>Desenvolvimento de automações e melhorias em controles administrativos, contribuindo para maior agilidade e padronização dos processos.</li>
+          </ul>
+        </article>
+
+        <article class="experience">
+          <div class="job-head">
+            <div>
+              <h3 class="job-title">Jovem Aprendiz</h3>
+              <p class="company">MANSERV</p>
+            </div>
+            <span class="period">2022</span>
+          </div>
+          <ul>
+            <li>Apoio às rotinas administrativas, criação de controles internos e organização de documentos e informações.</li>
+          </ul>
+        </article>
+
+        <article class="experience">
+          <div class="job-head">
+            <div>
+              <h3 class="job-title">Jovem Aprendiz</h3>
+              <p class="company">KARINA PLÁSTICOS</p>
+            </div>
+            <span class="period">2020 – 2021</span>
+          </div>
+          <ul>
+            <li>Suporte às atividades administrativas e operacionais, desenvolvendo organização, comunicação e responsabilidade profissional.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Competências</h2>
+        <div class="competency-grid">
+          <div class="competency">Planejamento e programação de obras</div>
+          <div class="competency">Gestão de indicadores e dashboards</div>
+          <div class="competency">Análise e organização de dados</div>
+          <div class="competency">Automação e melhoria de processos</div>
+          <div class="competency">Controle de cronogramas e equipes</div>
+          <div class="competency">Comunicação com áreas operacionais</div>
+        </div>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

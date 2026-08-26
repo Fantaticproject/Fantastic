@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" type="image/png" href="logo.webp">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lima Marmitex - Cardápio Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#ff6b00;
+  --primary-dark:#e05500;
+  --accent:#ff9b42;
+  --bg:#fff8f0;
+  --card:#fff;
+  --muted:#777;
+  --shadow:rgba(0,0,0,0.15);
+  --transition:0.3s;
+}
+
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:#111;line-height:1.5;overflow-x:hidden;position:relative}
+
+/* Container */
+.container{max-width:1080px;margin:30px auto;padding:0 16px}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* espaçamento entre logo e título */
+}
+
+header .logo img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover; /* mantém proporção e preenche o quadrado */
+  border-radius: 50%; /* deixa totalmente circular */
+  border: 2px solid var(--primary); /* opcional: borda colorida */
+}
+
+
+/* Ajuste para telas pequenas */
+@media (max-width:600px){
+  .logo img {
+    width:60px;
+    height:60px;
+  }
+}
+.logo img:hover{transform:scale(1.05);}
+header h1{font-size:36px;font-weight:700;color:var(--primary)}
+header .sub{font-size:15px;color:var(--muted);margin-top:4px}
+
+/* Grid Layout */
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:30px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.aside{order:2}}
+
+/* Card Base */
+.card{background:var(--card);border-radius:24px;padding:30px;box-shadow:0 12px 36px var(--shadow);margin-bottom:30px;transition:var(--transition);}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 48px var(--shadow);}
+
+/* Section Title */
+.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.section-title h2{font-size:24px;font-weight:700;color:#333}
+.section-title .small{font-size:13px;color:var(--muted)}
+
+/* Dishes */
+.dish{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding:16px;border-radius:20px;transition:var(--transition);cursor:pointer;position:relative;}
+.dish:hover{background:linear-gradient(90deg,#fff4e6,#ffffff);transform:translateY(-4px);box-shadow:0 10px 24px var(--shadow);}
+.meta{max-width:calc(100% - 140px)}
+.meta h3{font-size:18px;font-weight:600;color:#333}
+.meta p{margin-top:6px;color:var(--muted);font-size:14px;line-height:1.4}
+.price{font-weight:700;color:var(--primary-dark);font-size:16px;min-width:60px;text-align:right;}
+
+/* Buttons */
+.btn-add{background:var(--primary);color:#fff;font-weight:700;padding:12px 26px;border:none;border-radius:30px;cursor:pointer;transition:var(--transition);}
+.btn-add:hover{background:var(--primary-dark);transform:translateY(-2px);}
+
+/* Custom Marmita */
+.custom{text-align:center;margin-top:20px}
+.custom .btn-add{font-size:16px;padding:16px 32px;transition:var(--transition);}
+
+/* Aside Cart */
+.aside .box{background:var(--card);padding:30px;border-radius:24px;box-shadow:0 12px 36px var(--shadow);}
+.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:14px;transition:var(--transition);}
+.cart-footer{display:flex;gap:12px;margin-top:20px}
+.btn-whats{flex:1;background:#25d366;color:#fff;font-weight:700;border:none;padding:14px;border-radius:16px;cursor:pointer;transition:0.3s;}
+.btn-whats:hover{background:#1ebe5a;transform:translateY(-2px);}
+.btn-clear{flex:0;background:#eee;color:#555;border:none;padding:14px;border-radius:16px;cursor:pointer;transition:0.3s;}
+.btn-clear:hover{background:#ddd;transform:translateY(-1px);}
+
+/* Floating Cart */
+.floating-cart{position:fixed;right:18px;bottom:18px;background:var(--primary);color:#fff;padding:16px 18px;border-radius:50px;box-shadow:0 12px 32px rgba(0,0,0,0.25);z-index:70;display:flex;align-items:center;gap:14px;cursor:pointer;font-weight:700;transition:var(--transition);}
+.floating-cart .count{background:rgba(255,255,255,0.2);padding:6px 14px;border-radius:999px;transition:var(--transition);}
+
+/* Footer */
+footer{margin-top:50px;text-align:center;color:var(--muted);font-size:14px}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:60;transition:var(--transition);}
+.modal{width:500px;max-width:95%;background:#fff;border-radius:24px;padding:30px;box-shadow:0 20px 50px rgba(0,0,0,0.35);transition:var(--transition);}
+.modal h3{margin-bottom:20px;font-weight:700;font-size:20px;color:var(--primary)}
+.options .section-title{font-weight:600;margin-top:16px;margin-bottom:8px;color:#e05500;}
+.options .opt-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee;}
+.options .opt-row:last-child{border-bottom:none;}
+.options input[type="number"]{width:60px;padding:6px;border-radius:10px;border:1px solid #ccc;text-align:center;}
+.options input[type="radio"], .options input[type="checkbox"]{margin-right:8px;accent:var(--primary);}
+.modal button{margin-top:16px;padding:12px 24px;border-radius:20px;border:none;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;transition:var(--transition);}
+.modal button:hover{background:var(--primary-dark);}
+.small{font-size:13px;color:#777;margin-top:4px;}
+
+/* Prato voando */
+.flying-img{position:absolute;width:60px;height:60px;border-radius:50%;pointer-events:none;transition:transform 0.8s ease-in-out, opacity 0.8s ease-in-out;z-index:1000;}
+</style>
+<link rel="stylesheet" href="../lite-shell.css"></head>
+<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="fantastic-lite-label">VERSÃO LITE · SEM DADOS REAIS</span>
+
+<div class="container">
+<header>
+  <div class="logo">
+    <img src="logo.webp" alt="Logo Lima Marmitex">
+  </div>
+  <div>
+    <h1>🍽️ Lima Marmitex</h1>
+    <div class="sub">Cardápio interativo — adicione ao carrinho e envie no WhatsApp</div>
+  </div>
+</header>
+
+  <div class="grid">
+    <main>
+      <!-- Prato Feito -->
+      <div class="card">
+        <div class="section-title">
+          <h2>Prato Feito</h2>
+          <div class="small">Porção individual</div>
+        </div>
+
+        <div class="dish">
+          <div class="meta"><h3>Frango à parmegiana</h3></div>
+          <div class="price">R$ 30,00 <button class="btn-add" onclick="flyAdd(this,'Frango à parmegiana',30)">Adicionar</button></div>
+        </div>
+
+        <div class="dish">
+          <div class="meta"><h3>Frango grelhado</h3></div>
+          <div class="price">R$ 29,00 <button class="btn-add" onclick="flyAdd(this,'Frango grelhado',29)">Adicionar</button></div>
+        </div>
+
+        <div class="dish">
+          <div class="meta"><h3>Frango empanado</h3></div>
+          <div class="price">R$ 25,00 <button class="btn-add" onclick="flyAdd(this,'Frango empanado',25)">Adicionar</button></div>
+        </div>
+
+        <div class="dish">
+          <div class="meta"><h3>Calabresa</h3></div>
+          <div class="price">R$ 27,00 <button class="btn-add" onclick="flyAdd(this,'Calabresa',27)">Adicionar</button></div>
+        </div>
+
+        <div class="dish">
+          <div class="meta"><h3>Omelete</h3></div>
+          <div class="price">R$ 25,00 <button class="btn-add" onclick="flyAdd(this,'Omelete',25)">Adicionar</button></div>
+        </div>
+      </div>
+
+      <!-- Monte Sua Marmita -->
+      <div class="card">
+        <div class="section-title">
+          <h2>Monte Sua Marmita</h2>
+          <div class="small">Preço Base: R$ 30,00</div>
+        </div>
+        <div class="custom">
+          <button class="btn-add" onclick="openCustomModal()">Escolher e Adicionar</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Carrinho -->
+    <aside class="aside">
+      <div class="box">
+        <h3>🛒 Seu pedido</h3>
+        <div id="cart-box">Nenhum item no carrinho</div>
+        <div style="margin-top:10px;font-weight:700">Total: R$ <span id="cart-total">0.00</span></div>
+        <div class="cart-footer">
+          <button class="btn-whats" onclick="sendWhatsApp()">Enviar Pedido no WhatsApp</button>
+          <button class="btn-clear" onclick="clearCart()">Limpar</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- Modal Marmita -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h3>Monte Sua Marmita — Confirmar opções</h3>
+    <div class="small">Preço base: R$ 30,00</div>
+    <div class="options">
+      <div class="section-title">Macarrão (Escolha até 1)</div>
+      <label><input type="radio" name="macarrao" value="Nenhum" checked> Nenhum</label><br>
+      <label><input type="radio" name="macarrao" value="Macarrão alho e óleo" data-price="3"> Macarrão alho e óleo (+ R$ 3,00)</label>
+      <div class="section-title">Mistura (Escolha 1)</div>
+      <label><input type="radio" name="mistura" value="Filé de frango Grelhado" data-price="3"> Filé de frango Grelhado (+ R$ 3,00)</label><br>
+      <label><input type="radio" name="mistura" value="Frango à parmegiana" data-price="3"> Frango à parmegiana (+ R$ 3,00)</label><br>
+      <label><input type="radio" name="mistura" value="Frango empanado"> Frango empanado</label><br>
+      <label><input type="radio" name="mistura" value="Calabresa"> Calabresa</label><br>
+      <label><input type="radio" name="mistura" value="Omelete"> Omelete</label><br>
+      <div class="section-title">Quantidade de ovos (+R$ 2,00 cada)</div>
+      <input type="number" id="qtdOvos" value="0" min="0">
+      <div class="section-title">Complementos</div>
+      <label><input type="checkbox" value="Batata frita extra" data-price="5"> Batata frita extra (+ R$ 5,00)</label><br>
+      <label><input type="checkbox" value="Salada" data-price="5"> Salada (+ R$ 5,00)</label><br>
+      <label><input type="checkbox" value="Farofa yoki" data-price="1"> Farofa yoki (+ R$ 1,00)</label>
+      <button onclick="flyAddModal()">Adicionar Marmita Personalizada</button>
+    </div>
+  </div>
+</div>
+
+<div class="floating-cart" id="floatingCart" onclick="scrollToCart()">
+  🛒 <div class="count" id="floating-count">0</div> 
+  <div id="floating-total">R$ 0.00</div>
+</div>
+
+<script>
+let cart=[];
+
+function flyAdd(button,name,price){
+  // Criar imagem fantasma
+  let rect=button.getBoundingClientRect();
+  let fly=document.createElement('div');
+  fly.className='flying-img';
+  fly.style.left=rect.left+'px';
+  fly.style.top=rect.top+'px';
+  fly.style.background='orange';
+  document.body.appendChild(fly);
+  let cartEl=document.querySelector('.floating-cart');
+  let cartRect=cartEl.getBoundingClientRect();
+  requestAnimationFrame(()=>{fly.style.transform=`translate(${cartRect.left-rect.left}px,${cartRect.top-rect.top}px) scale(0.3)`; fly.style.opacity='0';});
+  setTimeout(()=>{fly.remove(); addToCart(name,price);},800);
+}
+
+function flyAddModal(){
+  addCustomToCart(true);
+}
+
+// Carrinho
+function addToCart(name,price){
+  let item=cart.find(i=>i.name===name);
+  if(item){item.qty+=1;}else{cart.push({name,price,qty:1});}
+  updateCart();
+}
+
+function openCustomModal(){document.getElementById('modalBackdrop').style.display='flex';}
+document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop'){e.target.style.display='none';}});
+
+function addCustomToCart(fly=false){
+  let macarrao=document.querySelector('input[name="macarrao"]:checked');
+  let mistura=document.querySelector('input[name="mistura"]:checked');
+  let ovos=parseInt(document.getElementById('qtdOvos').value)||0;
+  let complementos=[...document.querySelectorAll('.options input[type="checkbox"]:checked')].map(c=>c.value);
+
+  let desc=[macarrao.value,mistura.value];
+  if(ovos>0) desc.push(`Ovos x${ovos}`);
+  if(complementos.length>0) desc.push(...complementos);
+
+  let price=30;
+  price+=parseFloat(macarrao.dataset.price||0);
+  price+=parseFloat(mistura.dataset.price||0);
+  price+=ovos*2;
+  complementos.forEach(c=>{let el=document.querySelector(`.options input[value="${c}"]`); price+=parseFloat(el.dataset.price||0);});
+
+  let itemName='Marmita Personalizada ('+desc.join(', ')+')';
+  if(fly){
+    let cartEl=document.querySelector('.floating-cart');
+    let rect=cartEl.getBoundingClientRect();
+    let flyDiv=document.createElement('div');
+    flyDiv.className='flying-img';
+    flyDiv.style.left='50%';
+    flyDiv.style.top='50%';
+    flyDiv.style.background='orange';
+    document.body.appendChild(flyDiv);
+    requestAnimationFrame(()=>{flyDiv.style.transform=`translate(${rect.left-rect.left}px,${rect.top-rect.top}px) scale(0.3)`; flyDiv.style.opacity='0';});
+    setTimeout(()=>{flyDiv.remove(); cart.push({name:itemName,price,qty:1}); updateCart();},800);
+  } else {
+    cart.push({name:itemName,price,qty:1});
+    updateCart();
+  }
+  document.getElementById('modalBackdrop').style.display='none';
+}
+
+function updateCart(){
+  const cartBox=document.getElementById('cart-box');
+  const totalEl=document.getElementById('cart-total');
+  if(cart.length===0){cartBox.innerHTML='Nenhum item no carrinho'; totalEl.textContent='0.00'; document.getElementById('floating-count').textContent='0'; return;}
+  let html='',total=0;
+  cart.forEach(item=>{html+=`<div class="cart-item">${item.name} x${item.qty} <span>R$ ${(item.price*item.qty).toFixed(2)}</span></div>`; total+=item.price*item.qty;});
+  cartBox.innerHTML=html;
+  totalEl.textContent=total.toFixed(2);
+  document.getElementById('floating-count').textContent=cart.reduce((a,b)=>a+b.qty,0);
+  document.getElementById('floating-total').textContent=total.toFixed(2);
+}
+
+function clearCart(){cart=[];updateCart();}
+
+function sendWhatsApp(){
+  if(cart.length===0){alert('O carrinho está vazio!'); return;}
+  let msg='Olá! Gostaria de fazer o pedido:\n';
+  cart.forEach(item=>{msg+=`- ${item.name} x${item.qty}\n`;});
+  msg+='Total: R$ '+document.getElementById('cart-total').textContent;
+  let url='https://wa.me/?text=Pedido%20demonstrativo?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
+}
+</script>
+<script>
+function scrollToCart() {
+    const cart = document.querySelector(".aside");
+    if (cart) {
+        cart.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+}
+</script>
+
+</body>
+</html>

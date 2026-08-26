@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="icon" href="imagens/favicon.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAMPEONATO SUPREMO</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0f0f, #1c1c1c);
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: gold;
+    }
+    .container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .ranking, .matches {
+      border: 2px solid gold;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #121212;
+    }
+    .ranking {
+      flex: 1 1 400px;
+    }
+    .matches {
+      flex: 1 1 600px;
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 6px;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+    .player-name {
+      flex-grow: 1;
+    }
+    .score {
+      font-weight: bold;
+      color: gold;
+    }
+    .match-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .match-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .match-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 0;
+    }
+    .arrow-button {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    .match-round {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: gold;
+    }
+  </style>
+<link rel="stylesheet" href="../lite-shell.css"></head>
+<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="fantastic-lite-label">VERSÃO LITE · SEM DADOS REAIS</span>
+  <h1>GAMERBOL LIBERTADORES</h1>
+  <div class="container">
+    <!-- Ranking Geral -->
+    <div class="ranking" id="ranking">
+      <h2>Ranking Geral</h2>
+      <!-- Populado via JS -->
+    </div>
+
+    <!-- Confrontos com navegação por rodada -->
+    <div class="matches">
+      <div class="match-header">
+        <button class="arrow-button" onclick="prevRound()">⟵</button>
+        <div>
+          <div class="match-round" id="round-info">Rodada 1 - 4x4</div>
+        </div>
+        <button class="arrow-button" onclick="nextRound()">⟶</button>
+      </div>
+      <div class="match-grid" id="match-grid">
+        <!-- Populado via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const players = ['Caua_Lma', 'Bruno', 'Jeffao', 'Ferrugem128', 'TankeyyG0D', 'Gamer 13', 'Jão', 'Kan_sei'];
+    const playerImages = {
+      "Caua_Lma": "imagens/jogador1.png",
+      "Bruno": "imagens/jogador2.png",
+      "Jeffao": "imagens/jogador3.png",
+      "Ferrugem128": "imagens/jogador4.png",
+      "TankeyyG0D": "imagens/jogador5.png",
+      "Gamer 13": "imagens/jogador6.png",
+      "Jão": "imagens/jogador7.png",
+      "Kan_sei": "imagens/jogador8.png"
+    };
+
+    const rounds = [
+      { tipo: '4x4 - TF2', confrontos: [["Jão", "Bruno", "TankeyyG0D", "Gamer 13"], ["Ferrugem128", "Caua_Lma", "Kan_sei", "Jeffao"]], resultados: {"Jão": 0, "Bruno": 0, "TankeyyG0D": 0, "Gamer 13": 0, "Ferrugem128": 0, "Caua_Lma": 0, "Kan_sei": 0, "Jeffao": 0} },
+
+
+      { tipo: 'x1', confrontos: [["Bruno", "Caua_Lma", "Ferrugem128", "TankeyyG0D"], ["Jão", "Kan_sei", "Gamer 13", "Jeffao"]], resultados: {"Bruno": 3, "Caua_Lma": 3, "Ferrugem128": 0, "TankeyyG0D": 3, "Jão": 0, "Kan_sei": 0, "Gamer 13": 3, "Jeffao": 0} },
+
+
+      { tipo: 'x1', confrontos: [["Jão", "Bruno", "Jeffao", "Gamer 13"], ["Kan_sei", "Ferrugem128", "Caua_Lma", "TankeyyG0D"]], resultados: {"Jão": 3, "Bruno": 3, "Jeffao": 0, "Gamer 13": 3, "Kan_sei": 0, "Ferrugem128": 0, "Caua_Lma": 3, "TankeyyG0D": 0} },
+
+
+      { tipo: 'x1', confrontos: [["Ferrugem128", "Kan_sei", "TankeyyG0D", "Caua_Lma"], ["Jão", "Jeffao", "Bruno", "Gamer 13"]], resultados: {"Ferrugem128": 3, "Kan_sei": 3, "TankeyyG0D": 1, "Caua_Lma": 3, "Jão": 0, "Jeffao": 0, "Bruno": 1, "Gamer 13": 0} },
+
+
+      { tipo: 'x1', confrontos: [["Jão", "Ferrugem128", "Gamer 13", "Bruno"], ["Jeffao", "TankeyyG0D", "Kan_sei", "Caua_Lma"]], resultados: {"Jão": 3, "Ferrugem128": 0, "Gamer 13": 3, "Bruno": 0, "Jeffao": 0, "TankeyyG0D": 0, "Kan_sei": 0, "Caua_Lma": 3} },
+
+      { tipo: '4x4 - ROCKET LEAGUE', confrontos: [["TankeyyG0D", "Jeffao", "Kan_sei", "Ferrugem128"], ["Caua_Lma", "Gamer 13", "Bruno", "Jão"]], resultados: {"TankeyyG0D": 0, "Jeffao": 0, "Kan_sei": 0, "Ferrugem128": 0, "Caua_Lma": 3, "Gamer 13": 3, "Bruno": 3, "Jão": 3} },
+
+      { tipo: 'x1', confrontos: [["TankeyyG0D", "Jeffao", "Caua_Lma", "Kan_sei"], ["Jão", "Gamer 13", "Ferrugem128", "Bruno"]], resultados: {"TankeyyG0D": 0, "Jeffao": 0, "Caua_Lma": 0, "Kan_sei": 3, "Jão": 0, "Gamer 13": 0, "Ferrugem128": 0, "Bruno": 0} },
+
+
+      { tipo: 'x1', confrontos: [["Jão", "TankeyyG0D", "Bruno", "Ferrugem128"], ["Gamer 13", "Caua_Lma", "Jeffao", "Kan_sei"]], resultados: {"Jão": 0, "TankeyyG0D": 0, "Bruno": 0, "Ferrugem128": 0, "Gamer 13": 0, "Caua_Lma": 0, "Jeffao": 0, "Kan_sei": 0} },
+
+      { tipo: 'x1', confrontos: [["Caua_Lma", "Gamer 13", "Kan_sei", "Jeffao"], ["Jão", "Bruno", "TankeyyG0D", "Ferrugem128"]], resultados: {"Caua_Lma": 0, "Gamer 13": 0, "Kan_sei": 0, "Jeffao": 0, "Jão": 0, "Bruno": 0, "TankeyyG0D": 0, "Ferrugem128": 0} },
+
+      { tipo: 'x1', confrontos: [["Jão", "Kan_sei", "Gamer 13", "Jeffao"], ["Bruno", "Caua_Lma", "Ferrugem128", "TankeyyG0D"]], resultados: {"Jão": 0, "Kan_sei": 0, "Gamer 13": 0, "Jeffao": 0, "Bruno": 0, "Caua_Lma": 0, "Ferrugem128": 0, "TankeyyG0D": 0} },
+
+      { tipo: '4x4 - REPO', confrontos: [["TankeyyG0D", "Kan_sei", "Gamer 13", "Caua_Lma"], ["Ferrugem128", "Bruno", "Jeffao", "Jão"]], resultados: {"TankeyyG0D": 0, "Kan_sei": 0, "Gamer 13": 0, "Caua_Lma": 0, "Ferrugem128": 0, "Bruno": 0, "Jeffao": 0, "Jão": 0} },
+
+      { tipo: 'x1', confrontos: [["Kan_sei", "Ferrugem128", "Caua_Lma", "TankeyyG0D"], ["Jão", "Bruno", "Jeffao", "Gamer 13"]], resultados: {"Kan_sei": 0, "Ferrugem128": 0, "Caua_Lma": 0, "TankeyyG0D": 0, "Jão": 0, "Bruno": 0, "Jeffao": 0, "Gamer 13": 0} },
+
+      { tipo: 'x1', confrontos: [["Jão", "Jeffao", "Bruno", "Gamer 13"], ["Ferrugem128", "Kan_sei", "TankeyyG0D", "Caua_Lma"]], resultados: {"Jão": 0, "Jeffao": 0, "Bruno": 0, "Gamer 13": 0, "Ferrugem128": 0, "Kan_sei": 0, "TankeyyG0D": 0, "Caua_Lma": 0} },
+
+      { tipo: 'x1', confrontos: [["Jeffao", "TankeyyG0D", "Kan_sei", "Caua_Lma"], ["Jão", "Ferrugem128", "Gamer 13", "Bruno"]], resultados: {"Jeffao": 0, "TankeyyG0D": 0, "Kan_sei": 0, "Caua_Lma": 0, "Jão": 0, "Ferrugem128": 0, "Gamer 13": 0, "Bruno": 0} },
+
+      { tipo: 'x1', confrontos: [["Jão", "Gamer 13", "Ferrugem128", "Bruno"], ["TankeyyG0D", "Jeffao", "Caua_Lma", "Kan_sei"]], resultados: {"Jão": 0, "Gamer 13": 0, "Ferrugem128": 0, "Bruno": 0, "TankeyyG0D": 0, "Jeffao": 0, "Caua_Lma": 0, "Kan_sei": 0} },
+
+      { tipo: '4x4 - BRAWLHALLA', confrontos: [["Ferrugem128", "Jeffao", "Jão", "Caua_Lma"], ["TankeyyG0D", "Kan_sei", "Gamer 13", "Bruno"]], resultados: {"Ferrugem128": 0, "TankeyyG0D": 0, "Jão": 0, "Caua_Lma": 0, "Jeffao": 0, "Kan_sei": 0, "Gamer 13": 0, "Bruno": 0} },
+
+      { tipo: 'x1', confrontos: [["Gamer 13", "Caua_Lma", "Jeffao", "Kan_sei"], ["Jão", "TankeyyG0D", "Bruno", "Ferrugem128"]], resultados: {"Gamer 13": 0, "Caua_Lma": 0, "Jeffao": 0, "Kan_sei": 0, "Jão": 0, "TankeyyG0D": 0, "Bruno": 0, "Ferrugem128": 0} },
+
+      { tipo: 'x1', confrontos: [["Jão", "Bruno", "TankeyyG0D", "Ferrugem128"], ["Caua_Lma", "Gamer 13", "Kan_sei", "Jeffao"]], resultados: {"Jão": 0, "Bruno": 0, "TankeyyG0D": 0, "Ferrugem128": 0, "Caua_Lma": 0, "Gamer 13": 0, "Kan_sei": 0, "Jeffao": 0} }
+
+    ];
+
+
+
+    let currentRound = 0;
+
+    function calculateTotalScores() {
+      const totals = {};
+      for (const name of players) totals[name] = 0;
+      for (const round of rounds) {
+        for (const [name, val] of Object.entries(round.resultados)) {
+          totals[name] += val;
+        }
+      }
+      return totals;
+    }
+
+    function renderRanking() {
+      const container = document.getElementById('ranking');
+      const totals = calculateTotalScores();
+      const sorted = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+      container.innerHTML = '<h2>Ranking Geral</h2>' + sorted.map(([name, score]) => `
+        <div class="player-row">
+          <img class="avatar" src="${playerImages[name]}" alt="${name}">
+          <div class="player-name">${name}</div>
+          <div class="score">${score}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderRound() {
+      const round = rounds[currentRound];
+      const matchGrid = document.getElementById('match-grid');
+      const roundInfo = document.getElementById('round-info');
+      matchGrid.innerHTML = '';
+      roundInfo.textContent = `Rodada ${currentRound + 1} - ${round.tipo}`;
+
+      const leftTeam = round.confrontos[0];
+      const rightTeam = round.confrontos[1];
+
+      for (let i = 0; i < Math.max(leftTeam.length, rightTeam.length); i++) {
+        const left = leftTeam[i] || '';
+        const right = rightTeam[i] || '';
+
+        const leftScore = round.resultados[left] ?? '';
+        const rightScore = round.resultados[right] ?? '';
+
+        matchGrid.innerHTML += `
+          <div class="match-row">
+            <img class="avatar" src="${playerImages[left]}" alt="${left}">
+            <div>${left}</div>
+            <div class="score">${leftScore}</div>
+          </div>
+          <div>vs</div>
+          <div class="match-row">
+            <div class="score">${rightScore}</div>
+            <div>${right}</div>
+            <img class="avatar" src="${playerImages[right]}" alt="${right}">
+          </div>
+        `;
+      }
+    }
+
+    function prevRound() {
+      if (currentRound > 0) {
+        currentRound--;
+        renderRound();
+      }
+    }
+
+    function nextRound() {
+      if (currentRound < rounds.length - 1) {
+        currentRound++;
+        renderRound();
+      }
+    }
+
+    renderRanking();
+    renderRound();
+  </script>
+</body>
+</html>
