@@ -1,5 +1,10 @@
 const menu = document.querySelector(".menu"),
   nav = document.querySelector(".nav");
+if (menu && nav) {
+  nav.id ||= "main-navigation";
+  menu.setAttribute("aria-controls", nav.id);
+  menu.setAttribute("aria-expanded", "false");
+}
 document.querySelectorAll(".logo").forEach((logo) => {
   logo.innerHTML = '<img src="assets/logo-fantastic.png" alt="Fantastic">';
 });
@@ -7,6 +12,23 @@ menu?.addEventListener("click", () => {
   const open = nav.classList.toggle("open");
   menu.textContent = open ? "Fechar" : "Menu";
   menu.setAttribute("aria-expanded", open);
+  document.body.classList.toggle("menu-open", open);
+});
+nav?.querySelectorAll("a").forEach((link) =>
+  link.addEventListener("click", () => {
+    nav.classList.remove("open");
+    document.body.classList.remove("menu-open");
+    menu.textContent = "Menu";
+    menu.setAttribute("aria-expanded", "false");
+  }),
+);
+addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || !nav?.classList.contains("open")) return;
+  nav.classList.remove("open");
+  document.body.classList.remove("menu-open");
+  menu.textContent = "Menu";
+  menu.setAttribute("aria-expanded", "false");
+  menu.focus();
 });
 document
   .querySelector(`[data-nav="${document.body.dataset.page}"]`)

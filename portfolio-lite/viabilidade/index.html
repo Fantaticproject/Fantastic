@@ -1,25 +1,641 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Painel de Viabilidades</title><link rel="icon" href="icon.png"><style>
-:root{--bg:#f4f5f7;--surface:#fff;--surface-2:#f8f9fb;--text:#16181d;--muted:#69707d;--line:#dfe3e8;--accent:#245da8;--accent-2:#19467f;--danger:#b42318;--success:#16704a;--warning:#9a6700;--radius:8px;--shadow:0 1px 2px rgba(16,24,40,.05)}[data-theme="dark"]{--bg:#121418;--surface:#1a1d22;--surface-2:#20242a;--text:#edf0f4;--muted:#a6adb8;--line:#343942;--accent:#73a7ec;--accent-2:#8bb6ef;--danger:#ff8377;--success:#65c996;--warning:#e7b75d}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.topbar{background:var(--surface);border-bottom:1px solid var(--line)}.topbar-inner{max-width:1220px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand-line{display:flex;align-items:center;gap:11px}.brand-logo{width:38px;height:38px;object-fit:cover;border-radius:5px}.brand-title{display:grid}.brand-title small{text-transform:uppercase;letter-spacing:.1em;font-size:10px;color:var(--muted);font-weight:700}.brand-title strong{font-size:17px}.header-actions{display:flex;gap:8px}.app{max-width:1220px;margin:auto;padding:24px 18px 80px}.page-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:20px}.page-head h1{font-size:28px;letter-spacing:-.03em;margin:0}.page-head p{margin:5px 0 0;color:var(--muted)}.btn{border:1px solid transparent;border-radius:6px;padding:9px 12px;font:700 13px/1 Inter,Segoe UI,Arial,sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-2)}.btn-ghost{background:var(--surface);border-color:var(--line);color:var(--text)}.btn-ghost:hover{background:var(--surface-2)}.filters{display:grid;grid-template-columns:minmax(260px,1.8fr) repeat(3,minmax(140px,.7fr)) auto;gap:9px;margin-bottom:14px}input,select{width:100%;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--text);padding:10px 11px;font:inherit;outline:none}input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}.stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);margin-bottom:16px}.stat{padding:14px 16px;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat strong{display:block;font-size:22px}.stat span{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:15px;box-shadow:var(--shadow)}.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:11px}.project{margin:0;font-size:16px;word-break:break-word}.badge{border:1px solid var(--line);border-radius:5px;padding:4px 7px;font-size:10px;font-weight:800;white-space:nowrap;background:var(--surface-2)}.badge-priority{color:var(--warning)}.draw-ok{color:var(--success)}.draw-no{color:var(--muted)}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 12px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted);font-size:12px}.meta b{color:var(--text)}.card-actions{display:flex;gap:7px;flex-wrap:wrap;padding-top:11px}.mini-link{font-size:12px;text-decoration:none;color:var(--accent);font-weight:700}.empty{grid-column:1/-1;padding:50px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}.modal{display:none;position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.4);align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-content{width:min(480px,100%);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px}.modal-content h2{margin:0 0 16px}.field{display:grid;gap:6px;margin-bottom:12px}.field label{font-size:12px;font-weight:700}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.fab{display:none}
-@media(max-width:850px){.filters{grid-template-columns:1fr 1fr}.filters #busca{grid-column:1/-1}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.cards{grid-template-columns:1fr}}
-@media(max-width:560px){.topbar-inner{padding:11px 12px}.header-actions .theme-toggle{display:none}.app{padding:18px 12px 86px}.page-head{align-items:flex-start}.page-head h1{font-size:23px}.filters{grid-template-columns:1fr}.filters #busca{grid-column:auto}.stats{margin-bottom:12px}.card{padding:13px}.meta{grid-template-columns:1fr}.fab{display:flex;position:fixed;right:16px;bottom:18px;z-index:20;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#fff;border:0;align-items:center;justify-content:center;font-size:24px;box-shadow:0 8px 25px rgba(0,0,0,.2)}.brand-logo{width:32px;height:32px}}
-</style></head><body><header class="topbar"><div class="topbar-inner"><div class="brand-line"><div class="brand-title"><small>Painel técnico</small><strong>Viabilidades de campo</strong></div></div><div class="header-actions"><button class="btn btn-ghost theme-toggle" type="button" onclick="alternarTema()">☾ Escuro</button><button class="btn btn-primary" onclick="abrirModal()">Nova viabilidade</button></div></div></header><main class="app"><div class="page-head"><div><h1>Viabilidades</h1><p>Consulta e acompanhamento das inspeções de campo.</p></div></div><section class="filters"><input id="busca" type="search" placeholder="Buscar nota, CM/AUX, US, município ou responsável" oninput="agendarRenderizacao()"><select id="filtro-municipio" onchange="renderizarLista()"><option value="">Todos os municípios</option></select><select id="filtro-status" onchange="renderizarLista()"><option value="">Todos os status</option><option value="Pendente">Pendentes</option><option value="Concluída">Concluídas</option></select><select id="filtro-prioridade" onchange="renderizarLista()"><option value="">Todas</option><option value="prioridade">Só prioridades</option></select><button class="btn btn-ghost" onclick="carregarViabilidades()">Atualizar</button></section><section class="stats"><div class="stat"><strong id="stat-total">0</strong><span>Total</span></div><div class="stat"><strong id="stat-pendentes">0</strong><span>Pendentes</span></div><div class="stat"><strong id="stat-concluidas">0</strong><span>Concluídas</span></div><div class="stat"><strong id="stat-prioridades">0</strong><span>Prioridades</span></div></section><section class="cards" id="lista-viabilidades"></section></main><button class="fab" onclick="abrirModal()" aria-label="Nova viabilidade">+</button><div class="modal" id="modal-nova"><div class="modal-content"><h2>Nova viabilidade</h2><div class="field"><label for="modal-projeto">Nota</label><input id="modal-projeto" placeholder="Digite a nota"></div><div class="field"><label for="modal-cm">CM / AUX</label><input id="modal-cm" placeholder="Digite o CM ou AUX"></div><div class="field"><label for="modal-municipio">Município</label><input id="modal-municipio" placeholder="Digite o município"></div><div class="modal-actions"><button class="btn btn-ghost" onclick="fecharModal()">Cancelar</button><button class="btn btn-primary" onclick="prosseguirParaFormulario()">Criar viabilidade</button></div></div></div>
-<a class="fantastic-back" href="../../portfolio.html">← Portfólio</a><div class="lite-note">VERSÃO LITE · DADOS FICTÍCIOS</div><style>.brand-logo{display:none}.fantastic-back{position:fixed;left:12px;bottom:12px;z-index:99;padding:9px 13px;background:#16181d;color:#fff;border-radius:99px;text-decoration:none;font:700 12px Arial}.lite-note{position:fixed;right:12px;bottom:12px;color:var(--muted);font:700 10px Arial;letter-spacing:1px}</style><script>const dados=[{nota:'VT-1042',municipio:'Campinas',cm:'CM-821',us:'US-03',responsavel:'Equipe Técnica',status:'Concluída',prioridade:false,lm:1,lv:1},{nota:'VT-1051',municipio:'Sumaré',cm:'AUX-114',us:'US-07',responsavel:'Análise de Campo',status:'Pendente',prioridade:true,lm:1,lv:2},{nota:'VT-1060',municipio:'Hortolândia',cm:'CM-908',us:'US-02',responsavel:'Equipe Técnica',status:'Concluída',prioridade:false,lm:2,lv:1},{nota:'VT-1064',municipio:'Valinhos',cm:'AUX-126',us:'US-08',responsavel:'Vistoria',status:'Pendente',prioridade:false,lm:1,lv:1}];function renderizarLista(){const q=document.getElementById("busca").value.toLowerCase(),mun=document.getElementById('filtro-municipio').value,st=document.getElementById('filtro-status').value,prio=document.getElementById('filtro-prioridade').value;const lista=dados.filter(v=>(!q||JSON.stringify(v).toLowerCase().includes(q))&&(!mun||v.municipio===mun)&&(!st||v.status===st)&&(!prio||v.prioridade));document.getElementById('lista-viabilidades').innerHTML=lista.map(v=>`<article class="card ${v.prioridade?'priority':''}"><div class="card-head"><h3 class="project">${v.nota}</h3><span class="badge ${v.status==='Concluída'?'badge-ok':'badge-warn'}">${v.status}</span>${v.prioridade?'<span class="badge badge-priority">Prioridade</span>':''}</div><div class="meta"><div><span>Município</span><b>${v.municipio}</b></div><div><span>CM / AUX</span><b>${v.cm}</b></div><div><span>US</span><b>${v.us}</b></div><div><span>Responsável</span><b>${v.responsavel}</b></div><div><span>Equipes</span><b>LM: ${v.lm} | LV: ${v.lv}</b></div><div><span>Documentação</span><b class="draw-ok">Disponível</b></div></div><div class="card-actions"><button class="btn btn-primary" onclick="aviso()">Abrir / Editar</button><button class="btn btn-ghost" onclick="aviso()">Gerar PDF</button></div></article>`).join('')||'<div class="empty">Nenhuma viabilidade encontrada.</div>';statTotal.textContent=dados.length}const statTotal=document.getElementById('stat-total');document.getElementById('stat-pendentes').textContent=dados.filter(v=>v.status==='Pendente').length;document.getElementById('stat-concluidas').textContent=dados.filter(v=>v.status==='Concluída').length;document.getElementById('stat-prioridades').textContent=dados.filter(v=>v.prioridade).length;[...new Set(dados.map(v=>v.municipio))].forEach(m=>document.getElementById('filtro-municipio').insertAdjacentHTML('beforeend',`<option>${m}</option>`));function agendarRenderizacao(){renderizarLista()}function carregarViabilidades(){renderizarLista()}function alternarTema(){document.documentElement.toggleAttribute('data-theme')}function abrirModal(){document.getElementById('modal-nova').classList.add('open')}function fecharModal(){document.getElementById('modal-nova').classList.remove('open')}function prosseguirParaFormulario(){const nota=document.getElementById("modal-projeto").value.trim();const cm=document.getElementById("modal-cm").value.trim();const municipio=document.getElementById("modal-municipio").value.trim();if(!nota||!municipio){alert("Preencha a nota e o município.");return}dados.unshift({nota,municipio,cm:cm||"Sem CM",us:"US-DEMO",responsavel:"Demonstração",status:"Pendente",prioridade:false,lm:1,lv:1});document.getElementById("modal-projeto").value="";document.getElementById("modal-cm").value="";document.getElementById("modal-municipio").value="";fecharModal();renderizarLista()}function aviso(){alert('Demonstração lite: ação simulada, sem banco de dados.')}renderizarLista();</script></body></html>
-<script>
-function aviso(){
-  const botao=window.event?.target;
-  if(botao?.textContent.includes('Abrir')){
-    const nota=botao.closest('.card')?.querySelector('.project')?.textContent;
-    const v=dados.find(item=>item.nota===nota);
-    if(v) location.href=`form.html?nota=${encodeURIComponent(v.nota)}&cm=${encodeURIComponent(v.cm)}&municipio=${encodeURIComponent(v.municipio)}&responsavel=${encodeURIComponent(v.responsavel)}&lm=${v.lm}&lv=${v.lv}`;
-    return;
-  }
-  alert('Demonstração lite: ação simulada, sem banco de dados.');
-}
-function prosseguirParaFormulario(){
-  const nota=document.getElementById('modal-projeto').value.trim();
-  const cm=document.getElementById('modal-cm').value.trim();
-  const municipio=document.getElementById('modal-municipio').value.trim();
-  if(!nota||!municipio){alert('Preencha a nota e o município.');return;}
-  location.href=`form.html?nota=${encodeURIComponent(nota)}&cm=${encodeURIComponent(cm||'Sem CM')}&municipio=${encodeURIComponent(municipio)}`;
-}
-</script>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Painel de Viabilidades</title>
+    <link rel="icon" href="icon.png" />
+    <style>
+      :root {
+        --bg: #f4f5f7;
+        --surface: #fff;
+        --surface-2: #f8f9fb;
+        --text: #16181d;
+        --muted: #69707d;
+        --line: #dfe3e8;
+        --accent: #245da8;
+        --accent-2: #19467f;
+        --danger: #b42318;
+        --success: #16704a;
+        --warning: #9a6700;
+        --radius: 8px;
+        --shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+      }
+      [data-theme="dark"] {
+        --bg: #121418;
+        --surface: #1a1d22;
+        --surface-2: #20242a;
+        --text: #edf0f4;
+        --muted: #a6adb8;
+        --line: #343942;
+        --accent: #73a7ec;
+        --accent-2: #8bb6ef;
+        --danger: #ff8377;
+        --success: #65c996;
+        --warning: #e7b75d;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          14px/1.45 Inter,
+          Segoe UI,
+          Arial,
+          sans-serif;
+      }
+      .topbar {
+        background: var(--surface);
+        border-bottom: 1px solid var(--line);
+      }
+      .topbar-inner {
+        max-width: 1220px;
+        margin: auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+      .brand-line {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+      }
+      .brand-logo {
+        width: 38px;
+        height: 38px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .brand-title {
+        display: grid;
+      }
+      .brand-title small {
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-size: 10px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+      .brand-title strong {
+        font-size: 17px;
+      }
+      .header-actions {
+        display: flex;
+        gap: 8px;
+      }
+      .app {
+        max-width: 1220px;
+        margin: auto;
+        padding: 24px 18px 80px;
+      }
+      .page-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .page-head h1 {
+        font-size: 28px;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+      .page-head p {
+        margin: 5px 0 0;
+        color: var(--muted);
+      }
+      .btn {
+        border: 1px solid transparent;
+        border-radius: 6px;
+        padding: 9px 12px;
+        font:
+          700 13px/1 Inter,
+          Segoe UI,
+          Arial,
+          sans-serif;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        white-space: nowrap;
+      }
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--accent-2);
+      }
+      .btn-ghost {
+        background: var(--surface);
+        border-color: var(--line);
+        color: var(--text);
+      }
+      .btn-ghost:hover {
+        background: var(--surface-2);
+      }
+      .filters {
+        display: grid;
+        grid-template-columns:
+          minmax(260px, 1.8fr) repeat(3, minmax(140px, 0.7fr))
+          auto;
+        gap: 9px;
+        margin-bottom: 14px;
+      }
+      input,
+      select {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--text);
+        padding: 10px 11px;
+        font: inherit;
+        outline: none;
+      }
+      input:focus,
+      select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface);
+        margin-bottom: 16px;
+      }
+      .stat {
+        padding: 14px 16px;
+        border-right: 1px solid var(--line);
+      }
+      .stat:last-child {
+        border-right: 0;
+      }
+      .stat strong {
+        display: block;
+        font-size: 22px;
+      }
+      .stat span {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 15px;
+        box-shadow: var(--shadow);
+      }
+      .card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 11px;
+      }
+      .project {
+        margin: 0;
+        font-size: 16px;
+        word-break: break-word;
+      }
+      .badge {
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 4px 7px;
+        font-size: 10px;
+        font-weight: 800;
+        white-space: nowrap;
+        background: var(--surface-2);
+      }
+      .badge-priority {
+        color: var(--warning);
+      }
+      .draw-ok {
+        color: var(--success);
+      }
+      .draw-no {
+        color: var(--muted);
+      }
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px 12px;
+        padding: 10px 0;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .meta b {
+        display: block;
+        margin-top: 3px;
+        color: var(--text);
+      }
+      .meta span {
+        display: block;
+        margin-bottom: 2px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.055em;
+        text-transform: uppercase;
+      }
+      .card-actions {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        padding-top: 11px;
+      }
+      .mini-link {
+        font-size: 12px;
+        text-decoration: none;
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .empty {
+        grid-column: 1/-1;
+        padding: 50px 20px;
+        text-align: center;
+        color: var(--muted);
+        border: 1px dashed var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.4);
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+      }
+      .modal.open {
+        display: flex;
+      }
+      .modal-content {
+        width: min(480px, 100%);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+      }
+      .modal-content h2 {
+        margin: 0 0 16px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+      .field label {
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 18px;
+      }
+      .fab {
+        display: none;
+      }
+      @media (max-width: 850px) {
+        .filters {
+          grid-template-columns: 1fr 1fr;
+        }
+        .filters #busca {
+          grid-column: 1/-1;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stat:nth-child(2) {
+          border-right: 0;
+        }
+        .stat:nth-child(-n + 2) {
+          border-bottom: 1px solid var(--line);
+        }
+        .cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .topbar-inner {
+          padding: 11px 12px;
+        }
+        .header-actions .theme-toggle {
+          display: none;
+        }
+        .app {
+          padding: 18px 12px 86px;
+        }
+        .page-head {
+          align-items: flex-start;
+        }
+        .page-head h1 {
+          font-size: 23px;
+        }
+        .filters {
+          grid-template-columns: 1fr;
+        }
+        .filters #busca {
+          grid-column: auto;
+        }
+        .stats {
+          margin-bottom: 12px;
+        }
+        .card {
+          padding: 13px;
+        }
+        .meta {
+          grid-template-columns: 1fr;
+        }
+        .fab {
+          display: flex;
+          position: fixed;
+          right: 16px;
+          bottom: 18px;
+          z-index: 20;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: var(--accent);
+          color: #fff;
+          border: 0;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .brand-logo {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-line">
+          <div class="brand-title">
+            <small>Painel técnico</small><strong>Viabilidades de campo</strong>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button
+            class="btn btn-ghost theme-toggle"
+            type="button"
+            onclick="alternarTema()"
+          >
+            ☾ Escuro</button
+          ><button class="btn btn-primary" onclick="abrirModal()">
+            Nova viabilidade
+          </button>
+        </div>
+      </div>
+    </header>
+    <main class="app">
+      <div class="page-head">
+        <div>
+          <h1>Viabilidades</h1>
+          <p>Consulta e acompanhamento das inspeções de campo.</p>
+        </div>
+      </div>
+      <section class="filters">
+        <input
+          id="busca"
+          type="search"
+          placeholder="Buscar nota, CM/AUX, US, município ou responsável"
+          oninput="agendarRenderizacao()"
+        /><select id="filtro-municipio" onchange="renderizarLista()">
+          <option value="">Todos os municípios</option></select
+        ><select id="filtro-status" onchange="renderizarLista()">
+          <option value="">Todos os status</option>
+          <option value="Pendente">Pendentes</option>
+          <option value="Concluída">Concluídas</option></select
+        ><select id="filtro-prioridade" onchange="renderizarLista()">
+          <option value="">Todas</option>
+          <option value="prioridade">Só prioridades</option></select
+        ><button class="btn btn-ghost" onclick="carregarViabilidades()">
+          Atualizar
+        </button>
+      </section>
+      <section class="stats">
+        <div class="stat">
+          <strong id="stat-total">0</strong><span>Total</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-pendentes">0</strong><span>Pendentes</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-concluidas">0</strong><span>Concluídas</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-prioridades">0</strong><span>Prioridades</span>
+        </div>
+      </section>
+      <section class="cards" id="lista-viabilidades"></section>
+    </main>
+    <button class="fab" onclick="abrirModal()" aria-label="Nova viabilidade">
+      +
+    </button>
+    <div class="modal" id="modal-nova">
+      <div class="modal-content">
+        <h2>Nova viabilidade</h2>
+        <div class="field">
+          <label for="modal-projeto">Nota</label
+          ><input id="modal-projeto" placeholder="Digite a nota" />
+        </div>
+        <div class="field">
+          <label for="modal-cm">CM / AUX</label
+          ><input id="modal-cm" placeholder="Digite o CM ou AUX" />
+        </div>
+        <div class="field">
+          <label for="modal-municipio">Município</label
+          ><input id="modal-municipio" placeholder="Digite o município" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" onclick="fecharModal()">Cancelar</button
+          ><button class="btn btn-primary" onclick="prosseguirParaFormulario()">
+            Criar viabilidade
+          </button>
+        </div>
+      </div>
+    </div>
+    <a class="fantastic-back" href="../../portfolio.html">← Portfólio</a>
+    <div class="lite-note">VERSÃO LITE · DADOS FICTÍCIOS</div>
+    <style>
+      .brand-logo {
+        display: none;
+      }
+      .fantastic-back {
+        position: fixed;
+        left: 12px;
+        bottom: 12px;
+        z-index: 99;
+        padding: 9px 13px;
+        background: #16181d;
+        color: #fff;
+        border-radius: 99px;
+        text-decoration: none;
+        font: 700 12px Arial;
+      }
+      .lite-note {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        color: var(--muted);
+        font: 700 10px Arial;
+        letter-spacing: 1px;
+      }
+    </style>
+    <script>
+      const dados = [
+        {
+          nota: "VT-1042",
+          municipio: "Campinas",
+          cm: "CM-821",
+          us: "US-03",
+          responsavel: "Equipe Técnica",
+          status: "Concluída",
+          prioridade: false,
+          lm: 1,
+          lv: 1,
+        },
+        {
+          nota: "VT-1051",
+          municipio: "Sumaré",
+          cm: "AUX-114",
+          us: "US-07",
+          responsavel: "Análise de Campo",
+          status: "Pendente",
+          prioridade: true,
+          lm: 1,
+          lv: 2,
+        },
+        {
+          nota: "VT-1060",
+          municipio: "Hortolândia",
+          cm: "CM-908",
+          us: "US-02",
+          responsavel: "Equipe Técnica",
+          status: "Concluída",
+          prioridade: false,
+          lm: 2,
+          lv: 1,
+        },
+        {
+          nota: "VT-1064",
+          municipio: "Valinhos",
+          cm: "AUX-126",
+          us: "US-08",
+          responsavel: "Vistoria",
+          status: "Pendente",
+          prioridade: false,
+          lm: 1,
+          lv: 1,
+        },
+      ];
+      function renderizarLista() {
+        const q = document.getElementById("busca").value.toLowerCase(),
+          mun = document.getElementById("filtro-municipio").value,
+          st = document.getElementById("filtro-status").value,
+          prio = document.getElementById("filtro-prioridade").value;
+        const lista = dados.filter(
+          (v) =>
+            (!q || JSON.stringify(v).toLowerCase().includes(q)) &&
+            (!mun || v.municipio === mun) &&
+            (!st || v.status === st) &&
+            (!prio || v.prioridade),
+        );
+        document.getElementById("lista-viabilidades").innerHTML =
+          lista
+            .map(
+              (v) =>
+                `<article class="card ${v.prioridade ? "priority" : ""}"><div class="card-head"><h3 class="project">${v.nota}</h3><span class="badge ${v.status === "Concluída" ? "badge-ok" : "badge-warn"}">${v.status}</span>${v.prioridade ? '<span class="badge badge-priority">Prioridade</span>' : ""}</div><div class="meta"><div><span>Município</span><b>${v.municipio}</b></div><div><span>CM / AUX</span><b>${v.cm}</b></div><div><span>US</span><b>${v.us}</b></div><div><span>Responsável</span><b>${v.responsavel}</b></div><div><span>Equipes</span><b>LM: ${v.lm} | LV: ${v.lv}</b></div><div><span>Documentação</span><b class="draw-ok">Disponível</b></div></div><div class="card-actions"><button class="btn btn-primary" onclick="aviso()">Abrir / Editar</button><button class="btn btn-ghost" onclick="aviso()">Gerar PDF</button></div></article>`,
+            )
+            .join("") ||
+          '<div class="empty">Nenhuma viabilidade encontrada.</div>';
+        statTotal.textContent = dados.length;
+      }
+      const statTotal = document.getElementById("stat-total");
+      document.getElementById("stat-pendentes").textContent = dados.filter(
+        (v) => v.status === "Pendente",
+      ).length;
+      document.getElementById("stat-concluidas").textContent = dados.filter(
+        (v) => v.status === "Concluída",
+      ).length;
+      document.getElementById("stat-prioridades").textContent = dados.filter(
+        (v) => v.prioridade,
+      ).length;
+      [...new Set(dados.map((v) => v.municipio))].forEach((m) =>
+        document
+          .getElementById("filtro-municipio")
+          .insertAdjacentHTML("beforeend", `<option>${m}</option>`),
+      );
+      function agendarRenderizacao() {
+        renderizarLista();
+      }
+      function carregarViabilidades() {
+        renderizarLista();
+      }
+      function alternarTema() {
+        document.documentElement.toggleAttribute("data-theme");
+      }
+      function abrirModal() {
+        document.getElementById("modal-nova").classList.add("open");
+      }
+      function fecharModal() {
+        document.getElementById("modal-nova").classList.remove("open");
+      }
+      function prosseguirParaFormulario() {
+        const nota = document.getElementById("modal-projeto").value.trim();
+        const cm = document.getElementById("modal-cm").value.trim();
+        const municipio = document
+          .getElementById("modal-municipio")
+          .value.trim();
+        if (!nota || !municipio) {
+          alert("Preencha a nota e o município.");
+          return;
+        }
+        location.href = `form.html?nota=${encodeURIComponent(nota)}&cm=${encodeURIComponent(cm || "Sem CM")}&municipio=${encodeURIComponent(municipio)}`;
+      }
+      function aviso() {
+        const botao = window.event?.target;
+        if (botao?.textContent.includes("Abrir")) {
+          const nota = botao
+            .closest(".card")
+            ?.querySelector(".project")?.textContent;
+          const v = dados.find((item) => item.nota === nota);
+          if (v) {
+            location.href = `form.html?nota=${encodeURIComponent(v.nota)}&cm=${encodeURIComponent(v.cm)}&municipio=${encodeURIComponent(v.municipio)}&responsavel=${encodeURIComponent(v.responsavel)}&lm=${v.lm}&lv=${v.lv}`;
+          }
+          return;
+        }
+        alert("Demonstração lite: ação simulada, sem banco de dados.");
+      }
+      renderizarLista();
+    </script>
+  </body>
+</html>
