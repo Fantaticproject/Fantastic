@@ -1,326 +1,782 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+
 <head>
-<link rel="icon" type="image/png" href="logo.webp">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lima Marmitex - Cardápio Premium</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --primary:#ff6b00;
-  --primary-dark:#e05500;
-  --accent:#ff9b42;
-  --bg:#fff8f0;
-  --card:#fff;
-  --muted:#777;
-  --shadow:rgba(0,0,0,0.15);
-  --transition:0.3s;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lima Marmitex | Delivery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../lite-shell.css">
+  <style>
+    :root {
+      --red: #ea1d2c;
+      --red-dark: #c91422;
+      --green: #2e7d32;
+      --bg: #f7f7f7;
+      --surface: #fff;
+      --text: #292929;
+      --muted: #717171;
+      --line: #e8e8e8;
+      --shadow: 0 8px 28px #00000012
+    }
 
-/* Reset */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:#111;line-height:1.5;overflow-x:hidden;position:relative}
+    * {
+      box-sizing: border-box
+    }
 
-/* Container */
-.container{max-width:1080px;margin:30px auto;padding:0 16px}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* Header */
-header {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* espaçamento entre logo e título */
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, sans-serif
+    }
 
-header .logo img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover; /* mantém proporção e preenche o quadrado */
-  border-radius: 50%; /* deixa totalmente circular */
-  border: 2px solid var(--primary); /* opcional: borda colorida */
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: #fff;
+      border-bottom: 1px solid var(--line)
+    }
 
+    .topbar-inner {
+      max-width: 1220px;
+      margin: auto;
+      min-height: 68px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 22px
+    }
 
-/* Ajuste para telas pequenas */
-@media (max-width:600px){
-  .logo img {
-    width:60px;
-    height:60px;
-  }
-}
-.logo img:hover{transform:scale(1.05);}
-header h1{font-size:36px;font-weight:700;color:var(--primary)}
-header .sub{font-size:15px;color:var(--muted);margin-top:4px}
+    .brand {
+      color: var(--red);
+      font-size: 22px;
+      font-weight: 800;
+      white-space: nowrap
+    }
 
-/* Grid Layout */
-.grid{display:grid;grid-template-columns:2fr 1fr;gap:30px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}.aside{order:2}}
+    .location {
+      display: grid;
+      font-size: 12px;
+      color: var(--muted)
+    }
 
-/* Card Base */
-.card{background:var(--card);border-radius:24px;padding:30px;box-shadow:0 12px 36px var(--shadow);margin-bottom:30px;transition:var(--transition);}
-.card:hover{transform:translateY(-6px);box-shadow:0 20px 48px var(--shadow);}
+    .location b {
+      color: var(--text);
+      font-size: 13px
+    }
 
-/* Section Title */
-.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-.section-title h2{font-size:24px;font-weight:700;color:#333}
-.section-title .small{font-size:13px;color:var(--muted)}
+    .search {
+      position: relative;
+      flex: 1;
+      max-width: 520px;
+      margin-left: auto
+    }
 
-/* Dishes */
-.dish{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding:16px;border-radius:20px;transition:var(--transition);cursor:pointer;position:relative;}
-.dish:hover{background:linear-gradient(90deg,#fff4e6,#ffffff);transform:translateY(-4px);box-shadow:0 10px 24px var(--shadow);}
-.meta{max-width:calc(100% - 140px)}
-.meta h3{font-size:18px;font-weight:600;color:#333}
-.meta p{margin-top:6px;color:var(--muted);font-size:14px;line-height:1.4}
-.price{font-weight:700;color:var(--primary-dark);font-size:16px;min-width:60px;text-align:right;}
+    .search input {
+      width: 100%;
+      border: 0;
+      background: #f2f2f2;
+      border-radius: 9px;
+      padding: 13px 15px 13px 42px;
+      font: 14px Inter;
+      outline: none
+    }
 
-/* Buttons */
-.btn-add{background:var(--primary);color:#fff;font-weight:700;padding:12px 26px;border:none;border-radius:30px;cursor:pointer;transition:var(--transition);}
-.btn-add:hover{background:var(--primary-dark);transform:translateY(-2px);}
+    .search span {
+      position: absolute;
+      left: 15px;
+      top: 12px
+    }
 
-/* Custom Marmita */
-.custom{text-align:center;margin-top:20px}
-.custom .btn-add{font-size:16px;padding:16px 32px;transition:var(--transition);}
+    .cart-top {
+      border: 0;
+      background: #fff;
+      color: var(--red);
+      font-weight: 700;
+      cursor: pointer
+    }
 
-/* Aside Cart */
-.aside .box{background:var(--card);padding:30px;border-radius:24px;box-shadow:0 12px 36px var(--shadow);}
-.cart-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:14px;transition:var(--transition);}
-.cart-footer{display:flex;gap:12px;margin-top:20px}
-.btn-whats{flex:1;background:#25d366;color:#fff;font-weight:700;border:none;padding:14px;border-radius:16px;cursor:pointer;transition:0.3s;}
-.btn-whats:hover{background:#1ebe5a;transform:translateY(-2px);}
-.btn-clear{flex:0;background:#eee;color:#555;border:none;padding:14px;border-radius:16px;cursor:pointer;transition:0.3s;}
-.btn-clear:hover{background:#ddd;transform:translateY(-1px);}
+    .hero {
+      background: linear-gradient(135deg, #8f1119, #ea1d2c);
+      height: 180px
+    }
 
-/* Floating Cart */
-.floating-cart{position:fixed;right:18px;bottom:18px;background:var(--primary);color:#fff;padding:16px 18px;border-radius:50px;box-shadow:0 12px 32px rgba(0,0,0,0.25);z-index:70;display:flex;align-items:center;gap:14px;cursor:pointer;font-weight:700;transition:var(--transition);}
-.floating-cart .count{background:rgba(255,255,255,0.2);padding:6px 14px;border-radius:999px;transition:var(--transition);}
+    .restaurant {
+      max-width: 1220px;
+      margin: -72px auto 0;
+      padding: 0 20px
+    }
 
-/* Footer */
-footer{margin-top:50px;text-align:center;color:var(--muted);font-size:14px}
+    .restaurant-card {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      background: #fff;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow)
+    }
 
-/* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:60;transition:var(--transition);}
-.modal{width:500px;max-width:95%;background:#fff;border-radius:24px;padding:30px;box-shadow:0 20px 50px rgba(0,0,0,0.35);transition:var(--transition);}
-.modal h3{margin-bottom:20px;font-weight:700;font-size:20px;color:var(--primary)}
-.options .section-title{font-weight:600;margin-top:16px;margin-bottom:8px;color:#e05500;}
-.options .opt-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #eee;}
-.options .opt-row:last-child{border-bottom:none;}
-.options input[type="number"]{width:60px;padding:6px;border-radius:10px;border:1px solid #ccc;text-align:center;}
-.options input[type="radio"], .options input[type="checkbox"]{margin-right:8px;accent:var(--primary);}
-.modal button{margin-top:16px;padding:12px 24px;border-radius:20px;border:none;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;transition:var(--transition);}
-.modal button:hover{background:var(--primary-dark);}
-.small{font-size:13px;color:#777;margin-top:4px;}
+    .restaurant-logo {
+      width: 105px;
+      height: 105px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff3e8;
+      border: 5px solid #fff;
+      box-shadow: 0 2px 14px #0002;
+      font-size: 45px
+    }
 
-/* Prato voando */
-.flying-img{position:absolute;width:60px;height:60px;border-radius:50%;pointer-events:none;transition:transform 0.8s ease-in-out, opacity 0.8s ease-in-out;z-index:1000;}
-</style>
-<link rel="stylesheet" href="../lite-shell.css"></head>
-<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="fantastic-lite-label">VERSÃO LITE · SEM DADOS REAIS</span>
+    .restaurant-info {
+      flex: 1
+    }
 
-<div class="container">
-<header>
-  <div class="logo">
-    <img src="logo.webp" alt="Logo Lima Marmitex">
-  </div>
-  <div>
-    <h1>🍽️ Lima Marmitex</h1>
-    <div class="sub">Cardápio interativo — adicione ao carrinho e envie no WhatsApp</div>
-  </div>
-</header>
+    .restaurant-info h1 {
+      margin: 0 0 6px;
+      font-size: 27px
+    }
 
-  <div class="grid">
-    <main>
-      <!-- Prato Feito -->
-      <div class="card">
-        <div class="section-title">
-          <h2>Prato Feito</h2>
-          <div class="small">Porção individual</div>
-        </div>
+    .restaurant-info p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px
+    }
 
-        <div class="dish">
-          <div class="meta"><h3>Frango à parmegiana</h3></div>
-          <div class="price">R$ 30,00 <button class="btn-add" onclick="flyAdd(this,'Frango à parmegiana',30)">Adicionar</button></div>
-        </div>
+    .details {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 11px;
+      font-size: 13px
+    }
 
-        <div class="dish">
-          <div class="meta"><h3>Frango grelhado</h3></div>
-          <div class="price">R$ 29,00 <button class="btn-add" onclick="flyAdd(this,'Frango grelhado',29)">Adicionar</button></div>
-        </div>
+    .rating {
+      color: #e67e00;
+      font-weight: 700
+    }
 
-        <div class="dish">
-          <div class="meta"><h3>Frango empanado</h3></div>
-          <div class="price">R$ 25,00 <button class="btn-add" onclick="flyAdd(this,'Frango empanado',25)">Adicionar</button></div>
-        </div>
+    .open {
+      color: var(--green);
+      font-weight: 700
+    }
 
-        <div class="dish">
-          <div class="meta"><h3>Calabresa</h3></div>
-          <div class="price">R$ 27,00 <button class="btn-add" onclick="flyAdd(this,'Calabresa',27)">Adicionar</button></div>
-        </div>
+    .delivery-badge {
+      padding: 10px 14px;
+      background: #f7f7f7;
+      border-radius: 8px;
+      font-size: 13px
+    }
 
-        <div class="dish">
-          <div class="meta"><h3>Omelete</h3></div>
-          <div class="price">R$ 25,00 <button class="btn-add" onclick="flyAdd(this,'Omelete',25)">Adicionar</button></div>
-        </div>
+    .categories {
+      position: sticky;
+      top: 68px;
+      z-index: 30;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      margin-top: 18px
+    }
+
+    .categories-inner {
+      max-width: 1220px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 25px;
+      overflow: auto
+    }
+
+    .category {
+      padding: 17px 0;
+      border: 0;
+      border-bottom: 3px solid transparent;
+      background: none;
+      color: var(--muted);
+      font: 600 14px Inter;
+      white-space: nowrap;
+      cursor: pointer
+    }
+
+    .category.active {
+      color: var(--red);
+      border-color: var(--red)
+    }
+
+    .layout {
+      max-width: 1220px;
+      margin: 24px auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 350px;
+      gap: 26px;
+      padding: 0 20px
+    }
+
+    .menu-section {
+      margin-bottom: 36px;
+      scroll-margin-top: 145px
+    }
+
+    .menu-section h2 {
+      margin: 0 0 5px;
+      font-size: 22px
+    }
+
+    .menu-section>p {
+      margin: 0 0 15px;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px
+    }
+
+    .product {
+      min-height: 170px;
+      display: grid;
+      grid-template-columns: 1fr 126px;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      transition: .15s
+    }
+
+    .product:hover {
+      border-color: #ccc;
+      box-shadow: 0 3px 14px #0000000c
+    }
+
+    .product h3 {
+      font-size: 15px;
+      margin: 0 0 7px
+    }
+
+    .product p {
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+      margin: 0 0 13px
+    }
+
+    .product-price {
+      font-size: 14px;
+      font-weight: 700
+    }
+
+    .food-img {
+      position: relative;
+      height: 126px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #fff3dc, #ffd4a3);
+      font-size: 46px;
+      overflow: hidden
+    }
+
+    .food-img.drink {
+      background: linear-gradient(145deg, #e9f7ff, #b7e0f8)
+    }
+
+    .food-img.dessert {
+      background: linear-gradient(145deg, #fff2f5, #ffc6d2)
+    }
+
+    .add-circle {
+      position: absolute;
+      right: 7px;
+      bottom: 7px;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--red);
+      box-shadow: 0 2px 10px #0003;
+      font-size: 23px;
+      cursor: pointer
+    }
+
+    .cart {
+      position: sticky;
+      top: 148px;
+      align-self: start;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden
+    }
+
+    .cart-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .cart-header h2 {
+      font-size: 18px;
+      margin: 0
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 44px 22px;
+      color: var(--muted)
+    }
+
+    .cart-empty span {
+      display: block;
+      font-size: 42px;
+      margin-bottom: 10px
+    }
+
+    .cart-items {
+      padding: 8px 18px
+    }
+
+    .cart-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .cart-item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px
+    }
+
+    .cart-item-top b {
+      max-width: 220px
+    }
+
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px
+    }
+
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .qty button {
+      width: 27px;
+      height: 27px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff0f1;
+      color: var(--red);
+      font-size: 17px;
+      cursor: pointer
+    }
+
+    .remove {
+      border: 0;
+      background: none;
+      color: var(--red);
+      font: 600 12px Inter;
+      cursor: pointer
+    }
+
+    .cart-summary {
+      padding: 16px 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 9px
+    }
+
+    .summary-total {
+      font-size: 16px;
+      font-weight: 800;
+      padding-top: 10px;
+      border-top: 1px solid var(--line)
+    }
+
+    .checkout {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--red);
+      color: #fff;
+      font: 700 14px Inter;
+      cursor: pointer
+    }
+
+    .checkout:disabled {
+      background: #ddd;
+      cursor: not-allowed
+    }
+
+    .clear {
+      display: block;
+      margin: 11px auto 0;
+      border: 0;
+      background: none;
+      color: var(--red);
+      font: 600 12px Inter;
+      cursor: pointer
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      background: #0009;
+      align-items: center;
+      justify-content: center;
+      padding: 16px
+    }
+
+    .modal-backdrop.open {
+      display: flex
+    }
+
+    .modal {
+      width: min(580px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: #fff;
+      border-radius: 13px
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .modal-head h2 {
+      font-size: 19px;
+      margin: 0
+    }
+
+    .close {
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 50%;
+      background: #f2f2f2;
+      font-size: 20px;
+      cursor: pointer
+    }
+
+    .modal-body {
+      padding: 20px
+    }
+
+    .choice-group {
+      margin-bottom: 22px
+    }
+
+    .choice-group h3 {
+      font-size: 14px;
+      margin: 0 0 10px
+    }
+
+    .choice {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px
+    }
+
+    .choice label {
+      display: flex;
+      gap: 8px
+    }
+
+    .choice input {
+      accent-color: var(--red)
+    }
+
+    .modal-footer {
+      position: sticky;
+      bottom: 0;
+      padding: 15px 20px;
+      background: #fff;
+      border-top: 1px solid var(--line)
+    }
+
+    .modal-footer button {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      background: var(--red);
+      color: #fff;
+      padding: 14px;
+      font: 700 14px Inter;
+      cursor: pointer
+    }
+
+    .checkout-form {
+      display: grid;
+      gap: 12px
+    }
+
+    .checkout-form label {
+      font-size: 12px;
+      font-weight: 700
+    }
+
+    .checkout-form input,
+    .checkout-form select,
+    .checkout-form textarea {
+      width: 100%;
+      margin-top: 5px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: 14px Inter
+    }
+
+    .order-success {
+      text-align: center;
+      padding: 35px 20px
+    }
+
+    .order-success span {
+      font-size: 50px
+    }
+
+    .order-success h2 {
+      margin: 13px 0 7px
+    }
+
+    .mobile-cart {
+      display: none;
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 50;
+      border: 0;
+      border-radius: 9px;
+      background: var(--red);
+      color: #fff;
+      padding: 14px 17px;
+      font: 700 14px Inter;
+      box-shadow: 0 5px 20px #0004
+    }
+
+    .mobile-cart span {
+      float: right
+    }
+
+    .lite-note {
+      position: fixed;
+      right: 10px;
+      bottom: 2px;
+      z-index: 51;
+      color: #888;
+      font: 700 8px Arial
+    }
+
+    @media(max-width:930px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .cart {
+        display: none
+      }
+
+      .products {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .mobile-cart.show {
+        display: block
+      }
+
+      .layout {
+        padding-bottom: 65px
+      }
+    }
+
+    @media(max-width:650px) {
+      .topbar-inner {
+        gap: 10px
+      }
+
+      .location {
+        display: none
+      }
+
+      .search {
+        margin-left: 0
+      }
+
+      .cart-top {
+        display: none
+      }
+
+      .hero {
+        height: 130px
+      }
+
+      .restaurant {
+        margin-top: -48px
+      }
+
+      .restaurant-card {
+        align-items: flex-start;
+        padding: 16px
+      }
+
+      .restaurant-logo {
+        width: 78px;
+        height: 78px;
+        font-size: 34px
+      }
+
+      .restaurant-info h1 {
+        font-size: 21px
+      }
+
+      .delivery-badge {
+        display: none
+      }
+
+      .categories {
+        top: 68px
+      }
+
+      .products {
+        grid-template-columns: 1fr
+      }
+
+      .product {
+        grid-template-columns: 1fr 105px;
+        min-height: 145px
+      }
+
+      .food-img {
+        height: 105px
+      }
+
+      .layout {
+        padding: 0 12px 65px
+      }
+
+      .restaurant {
+        padding: 0 12px
+      }
+    }
+  </style>
+</head>
+
+<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span
+    class="fantastic-lite-label">VERSÃO LITE · PEDIDO SIMULADO</span>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Lima Marmitex</div>
+      <div class="location"><span>ENTREGAR EM</span><b>Rua das Flores, 120 ▾</b></div><label
+        class="search"><span>⌕</span><input id="search" placeholder="Busque no cardápio"></label><button
+        class="cart-top" onclick="document.querySelector('.cart').scrollIntoView()">🛒 Sacola</button>
+    </div>
+  </header>
+  <div class="hero"></div>
+  <section class="restaurant">
+    <div class="restaurant-card">
+      <div class="restaurant-logo">🍛</div>
+      <div class="restaurant-info">
+        <h1>Lima Marmitex</h1>
+        <p>Comida brasileira · Marmitas · Pratos executivos</p>
+        <div class="details"><span class="rating">★ 4,8 (380 avaliações)</span><span>•</span><span
+            class="open">Aberto</span><span>•</span><span>Pedido mínimo R$ 15,00</span></div>
       </div>
-
-      <!-- Monte Sua Marmita -->
-      <div class="card">
-        <div class="section-title">
-          <h2>Monte Sua Marmita</h2>
-          <div class="small">Preço Base: R$ 30,00</div>
-        </div>
-        <div class="custom">
-          <button class="btn-add" onclick="openCustomModal()">Escolher e Adicionar</button>
-        </div>
+      <div class="delivery-badge"><b>Entrega</b><br>35–50 min · R$ 5,99</div>
+    </div>
+  </section>
+  <nav class="categories">
+    <div class="categories-inner"><button class="category active" data-target="destaques">Destaques</button><button
+        class="category" data-target="executivos">Pratos executivos</button><button class="category"
+        data-target="marmitas">Monte sua marmita</button><button class="category"
+        data-target="combos">Combos</button><button class="category" data-target="bebidas">Bebidas</button><button
+        class="category" data-target="sobremesas">Sobremesas</button></div>
+  </nav>
+  <div class="layout">
+    <main id="menu"></main>
+    <aside class="cart" id="cart">
+      <div class="cart-header">
+        <h2>Sua sacola</h2>
       </div>
-    </main>
-
-    <!-- Carrinho -->
-    <aside class="aside">
-      <div class="box">
-        <h3>🛒 Seu pedido</h3>
-        <div id="cart-box">Nenhum item no carrinho</div>
-        <div style="margin-top:10px;font-weight:700">Total: R$ <span id="cart-total">0.00</span></div>
-        <div class="cart-footer">
-          <button class="btn-whats" onclick="sendWhatsApp()">Enviar Pedido no WhatsApp</button>
-          <button class="btn-clear" onclick="clearCart()">Limpar</button>
-        </div>
-      </div>
+      <div id="cartContent"></div>
     </aside>
-  </div>
-</div>
-
-<!-- Modal Marmita -->
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal">
-    <h3>Monte Sua Marmita — Confirmar opções</h3>
-    <div class="small">Preço base: R$ 30,00</div>
-    <div class="options">
-      <div class="section-title">Macarrão (Escolha até 1)</div>
-      <label><input type="radio" name="macarrao" value="Nenhum" checked> Nenhum</label><br>
-      <label><input type="radio" name="macarrao" value="Macarrão alho e óleo" data-price="3"> Macarrão alho e óleo (+ R$ 3,00)</label>
-      <div class="section-title">Mistura (Escolha 1)</div>
-      <label><input type="radio" name="mistura" value="Filé de frango Grelhado" data-price="3"> Filé de frango Grelhado (+ R$ 3,00)</label><br>
-      <label><input type="radio" name="mistura" value="Frango à parmegiana" data-price="3"> Frango à parmegiana (+ R$ 3,00)</label><br>
-      <label><input type="radio" name="mistura" value="Frango empanado"> Frango empanado</label><br>
-      <label><input type="radio" name="mistura" value="Calabresa"> Calabresa</label><br>
-      <label><input type="radio" name="mistura" value="Omelete"> Omelete</label><br>
-      <div class="section-title">Quantidade de ovos (+R$ 2,00 cada)</div>
-      <input type="number" id="qtdOvos" value="0" min="0">
-      <div class="section-title">Complementos</div>
-      <label><input type="checkbox" value="Batata frita extra" data-price="5"> Batata frita extra (+ R$ 5,00)</label><br>
-      <label><input type="checkbox" value="Salada" data-price="5"> Salada (+ R$ 5,00)</label><br>
-      <label><input type="checkbox" value="Farofa yoki" data-price="1"> Farofa yoki (+ R$ 1,00)</label>
-      <button onclick="flyAddModal()">Adicionar Marmita Personalizada</button>
+  </div><button class="mobile-cart" id="mobileCart" onclick="openCartModal()">Ver sacola <span id="mobileTotal">R$
+      0,00</span></button><span class="lite-note">DEMONSTRAÇÃO</span>
+  <div class="modal-backdrop" id="productModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2 id="modalTitle"></h2><button class="close" onclick="closeModal('productModal')">×</button>
+      </div>
+      <div class="modal-body" id="productOptions"></div>
+      <div class="modal-footer"><button id="addConfigured">Adicionar à sacola</button></div>
     </div>
   </div>
-</div>
-
-<div class="floating-cart" id="floatingCart" onclick="scrollToCart()">
-  🛒 <div class="count" id="floating-count">0</div> 
-  <div id="floating-total">R$ 0.00</div>
-</div>
-
-<script>
-let cart=[];
-
-function flyAdd(button,name,price){
-  // Criar imagem fantasma
-  let rect=button.getBoundingClientRect();
-  let fly=document.createElement('div');
-  fly.className='flying-img';
-  fly.style.left=rect.left+'px';
-  fly.style.top=rect.top+'px';
-  fly.style.background='orange';
-  document.body.appendChild(fly);
-  let cartEl=document.querySelector('.floating-cart');
-  let cartRect=cartEl.getBoundingClientRect();
-  requestAnimationFrame(()=>{fly.style.transform=`translate(${cartRect.left-rect.left}px,${cartRect.top-rect.top}px) scale(0.3)`; fly.style.opacity='0';});
-  setTimeout(()=>{fly.remove(); addToCart(name,price);},800);
-}
-
-function flyAddModal(){
-  addCustomToCart(true);
-}
-
-// Carrinho
-function addToCart(name,price){
-  let item=cart.find(i=>i.name===name);
-  if(item){item.qty+=1;}else{cart.push({name,price,qty:1});}
-  updateCart();
-}
-
-function openCustomModal(){document.getElementById('modalBackdrop').style.display='flex';}
-document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop'){e.target.style.display='none';}});
-
-function addCustomToCart(fly=false){
-  let macarrao=document.querySelector('input[name="macarrao"]:checked');
-  let mistura=document.querySelector('input[name="mistura"]:checked');
-  let ovos=parseInt(document.getElementById('qtdOvos').value)||0;
-  let complementos=[...document.querySelectorAll('.options input[type="checkbox"]:checked')].map(c=>c.value);
-
-  let desc=[macarrao.value,mistura.value];
-  if(ovos>0) desc.push(`Ovos x${ovos}`);
-  if(complementos.length>0) desc.push(...complementos);
-
-  let price=30;
-  price+=parseFloat(macarrao.dataset.price||0);
-  price+=parseFloat(mistura.dataset.price||0);
-  price+=ovos*2;
-  complementos.forEach(c=>{let el=document.querySelector(`.options input[value="${c}"]`); price+=parseFloat(el.dataset.price||0);});
-
-  let itemName='Marmita Personalizada ('+desc.join(', ')+')';
-  if(fly){
-    let cartEl=document.querySelector('.floating-cart');
-    let rect=cartEl.getBoundingClientRect();
-    let flyDiv=document.createElement('div');
-    flyDiv.className='flying-img';
-    flyDiv.style.left='50%';
-    flyDiv.style.top='50%';
-    flyDiv.style.background='orange';
-    document.body.appendChild(flyDiv);
-    requestAnimationFrame(()=>{flyDiv.style.transform=`translate(${rect.left-rect.left}px,${rect.top-rect.top}px) scale(0.3)`; flyDiv.style.opacity='0';});
-    setTimeout(()=>{flyDiv.remove(); cart.push({name:itemName,price,qty:1}); updateCart();},800);
-  } else {
-    cart.push({name:itemName,price,qty:1});
-    updateCart();
-  }
-  document.getElementById('modalBackdrop').style.display='none';
-}
-
-function updateCart(){
-  const cartBox=document.getElementById('cart-box');
-  const totalEl=document.getElementById('cart-total');
-  if(cart.length===0){cartBox.innerHTML='Nenhum item no carrinho'; totalEl.textContent='0.00'; document.getElementById('floating-count').textContent='0'; return;}
-  let html='',total=0;
-  cart.forEach(item=>{html+=`<div class="cart-item">${item.name} x${item.qty} <span>R$ ${(item.price*item.qty).toFixed(2)}</span></div>`; total+=item.price*item.qty;});
-  cartBox.innerHTML=html;
-  totalEl.textContent=total.toFixed(2);
-  document.getElementById('floating-count').textContent=cart.reduce((a,b)=>a+b.qty,0);
-  document.getElementById('floating-total').textContent=total.toFixed(2);
-}
-
-function clearCart(){cart=[];updateCart();}
-
-function sendWhatsApp(){
-  if(cart.length===0){alert('O carrinho está vazio!'); return;}
-  let msg='Olá! Gostaria de fazer o pedido:\n';
-  cart.forEach(item=>{msg+=`- ${item.name} x${item.qty}\n`;});
-  msg+='Total: R$ '+document.getElementById('cart-total').textContent;
-  let url='https://wa.me/?text=Pedido%20demonstrativo?text='+encodeURIComponent(msg);
-  window.open(url,'_blank');
-}
-</script>
-<script>
-function scrollToCart() {
-    const cart = document.querySelector(".aside");
-    if (cart) {
-        cart.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-    }
-}
-</script>
-
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="modal">
+      <div class="modal-head">
+        <h2>Finalizar pedido</h2><button class="close" onclick="closeModal('checkoutModal')">×</button>
+      </div>
+      <div class="modal-body" id="checkoutBody">
+        <form class="checkout-form" id="checkoutForm"><label>Nome<input required
+              placeholder="Quem vai receber?"></label><label>Endereço de entrega<input required
+              value="Rua das Flores, 120"></label><label>Complemento<input
+              placeholder="Apartamento, bloco ou referência"></label><label>Forma de pagamento<select>
+              <option>Pix</option>
+              <option>Cartão na entrega</option>
+              <option>Dinheiro</option>
+            </select></label><label>Observações<textarea
+              placeholder="Ex.: retirar cebola, tocar interfone..."></textarea></label><button class="checkout"
+            type="submit">Realizar pedido</button></form>
+      </div>
+    </div>
+  </div>
+  <script>
+    const products = [
+      {id: 1, cat: 'destaques', name: 'Parmegiana da casa', desc: 'Frango empanado, molho artesanal, queijo, arroz, feijão e fritas.', price: 32.9, emoji: '🍗', popular: true}, {id: 2, cat: 'destaques', name: 'Bife acebolado completo', desc: 'Bife grelhado, arroz, feijão, farofa e salada fresca.', price: 31.9, emoji: '🥩'}, {id: 3, cat: 'destaques', name: 'Frango grelhado fit', desc: 'Filé de frango, arroz integral, feijão e legumes.', price: 29.9, emoji: '🥗'},
+      {id: 4, cat: 'executivos', name: 'Frango à parmegiana', desc: 'Acompanha arroz, feijão, fritas e salada.', price: 30, emoji: '🍛'}, {id: 5, cat: 'executivos', name: 'Frango grelhado', desc: 'Acompanha arroz, feijão, farofa e salada.', price: 29, emoji: '🍗'}, {id: 6, cat: 'executivos', name: 'Frango empanado', desc: 'Acompanha arroz, feijão e batata frita.', price: 25, emoji: '🍽️'}, {id: 7, cat: 'executivos', name: 'Calabresa acebolada', desc: 'Acompanha arroz, feijão, farofa e vinagrete.', price: 27, emoji: '🌭'}, {id: 8, cat: 'executivos', name: 'Omelete completo', desc: 'Omelete com queijo e tomate, arroz, feijão e salada.', price: 25, emoji: '🍳'},
+      {id: 9, cat: 'marmitas', name: 'Monte sua marmita média', desc: 'Escolha a proteína, acompanhamentos e complementos.', price: 26.9, emoji: '🥡', custom: true}, {id: 10, cat: 'marmitas', name: 'Monte sua marmita grande', desc: 'Mais espaço e até dois acompanhamentos extras.', price: 31.9, emoji: '🍱', custom: true},
+      {id: 11, cat: 'combos', name: 'Combo casal', desc: '2 pratos executivos + refrigerante de 1 litro.', price: 62.9, emoji: '👫'}, {id: 12, cat: 'combos', name: 'Combo família', desc: '4 marmitas médias + refrigerante de 2 litros.', price: 109.9, emoji: '👨‍👩‍👧‍👦'}, {id: 13, cat: 'combos', name: 'Executivo + bebida', desc: '1 prato executivo à escolha + refrigerante lata.', price: 34.9, emoji: '🍽️'},
+      {id: 14, cat: 'bebidas', name: 'Coca-Cola lata 350 ml', desc: 'Gelada.', price: 6, emoji: '🥤'}, {id: 15, cat: 'bebidas', name: 'Guaraná lata 350 ml', desc: 'Gelado.', price: 5.5, emoji: '🥤'}, {id: 16, cat: 'bebidas', name: 'Suco natural 500 ml', desc: 'Escolha laranja, limão ou maracujá.', price: 9.9, emoji: '🧃'}, {id: 17, cat: 'bebidas', name: 'Água mineral 500 ml', desc: 'Com ou sem gás.', price: 4, emoji: '💧'},
+      {id: 18, cat: 'sobremesas', name: 'Pudim de leite', desc: 'Fatia individual com calda de caramelo.', price: 8.9, emoji: '🍮'}, {id: 19, cat: 'sobremesas', name: 'Mousse de maracujá', desc: 'Pote individual de 150 ml.', price: 7.9, emoji: '🍨'}, {id: 20, cat: 'sobremesas', name: 'Brigadeiro gourmet', desc: 'Unidade de 35 g.', price: 4.5, emoji: '🍫'}];
+    const sections = {destaques: ['Mais pedidos', 'Os favoritos dos clientes'], executivos: ['Pratos executivos', 'Refeições completas para o seu dia'], marmitas: ['Monte sua marmita', 'Escolha do seu jeito'], combos: ['Combos', 'Mais comida por um preço melhor'], bebidas: ['Bebidas', 'Para acompanhar sua refeição'], sobremesas: ['Sobremesas', 'Finalize com algo doce']}; let cart = [], selected = null;
+    function money(v) {return v.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})} function renderMenu(filter = '') {menu.innerHTML = Object.entries(sections).map(([cat, [title, sub]]) => {const list = products.filter(p => p.cat === cat && (`${p.name} ${p.desc}`.toLowerCase().includes(filter.toLowerCase()))); if (!list.length) return ''; return `<section class="menu-section" id="${cat}"><h2>${title}</h2><p>${sub}</p><div class="products">${list.map(p => `<article class="product" onclick="openProduct(${p.id})"><div><h3>${p.popular ? '🔥 ' : ''}${p.name}</h3><p>${p.desc}</p><span class="product-price">${money(p.price)}</span></div><div class="food-img ${p.cat === 'bebidas' ? 'drink' : p.cat === 'sobremesas' ? 'dessert' : ''}">${p.emoji}<button class="add-circle">+</button></div></article>`).join('')}</div></section>`}).join('') || '<p>Nenhum item encontrado.</p>'}
+    function openProduct(id) {selected = products.find(p => p.id === id); modalTitle.textContent = selected.name; productOptions.innerHTML = `<p style="color:var(--muted);font-size:13px;margin-top:0">${selected.desc}</p>${selected.custom ? `<div class="choice-group"><h3>Escolha uma proteína</h3>${['Frango grelhado', 'Frango empanado', 'Calabresa acebolada', 'Omelete'].map((x, i) => `<div class="choice"><label><input type="radio" name="protein" value="${x}" ${i === 0 ? 'checked' : ''}>${x}</label></div>`).join('')}</div><div class="choice-group"><h3>Complementos</h3>${[['Batata frita', 5], ['Salada', 3], ['Ovo', 2], ['Farofa', 1]].map(x => `<div class="choice"><label><input type="checkbox" data-name="${x[0]}" data-price="${x[1]}">${x[0]}</label><span>+ ${money(x[1])}</span></div>`).join('')}</div>` : `<div class="choice-group"><h3>Deseja adicionar algo?</h3>${[['Ovo', 2], ['Batata frita', 5], ['Salada', 3]].map(x => `<div class="choice"><label><input type="checkbox" data-name="${x[0]}" data-price="${x[1]}">${x[0]}</label><span>+ ${money(x[1])}</span></div>`).join('')}</div>`}<div class="choice-group"><h3>Observação</h3><textarea id="itemNote" style="width:100%;padding:11px;border:1px solid var(--line);border-radius:8px" placeholder="Ex.: sem cebola"></textarea></div>`; addConfigured.textContent = `Adicionar · ${money(selected.price)}`; productModal.classList.add('open')}
+    addConfigured.onclick = () => {let extras = [...productOptions.querySelectorAll('[type="checkbox"]:checked')].map(x => ({name: x.dataset.name, price: +x.dataset.price})), protein = productOptions.querySelector('[name="protein"]:checked')?.value, price = selected.price + extras.reduce((s, x) => s + x.price, 0); cart.push({key: Date.now(), name: selected.name, desc: [protein, ...extras.map(x => x.name)].filter(Boolean).join(', '), price, qty: 1}); closeModal('productModal'); updateCart()};
+    function updateCart() {const total = cart.reduce((s, i) => s + i.price * i.qty, 0), count = cart.reduce((s, i) => s + i.qty, 0), delivery = count ? 5.99 : 0; cartContent.innerHTML = !count ? `<div class="cart-empty"><span>🛍️</span><b>Sua sacola está vazia</b><p>Adicione itens do cardápio para começar seu pedido.</p></div>` : `<div class="cart-items">${cart.map(i => `<div class="cart-item"><div class="cart-item-top"><b>${i.name}${i.desc ? `<small style="display:block;color:var(--muted);font-weight:400">${i.desc}</small>` : ''}</b><span>${money(i.price * i.qty)}</span></div><div class="cart-controls"><div class="qty"><button onclick="qty(${i.key},-1)">−</button><b>${i.qty}</b><button onclick="qty(${i.key},1)">+</button></div><button class="remove" onclick="removeItem(${i.key})">Remover</button></div></div>`).join('')}</div><div class="cart-summary"><div class="summary-line"><span>Subtotal</span><span>${money(total)}</span></div><div class="summary-line"><span>Taxa de entrega</span><span>${money(delivery)}</span></div><div class="summary-line summary-total"><span>Total</span><span>${money(total + delivery)}</span></div><button class="checkout" onclick="openCheckout()">Realizar pedido</button><button class="clear" onclick="cart=[];updateCart()">Limpar sacola</button></div>`; mobileCart.classList.toggle('show', count > 0); mobileTotal.textContent = money(total + delivery)} function qty(key, n) {const i = cart.find(x => x.key === key); i.qty += n; if (i.qty <= 0) removeItem(key); else updateCart()} function removeItem(key) {cart = cart.filter(x => x.key !== key); updateCart()} function closeModal(id) {document.getElementById(id).classList.remove('open')} function openCheckout() {checkoutModal.classList.add('open')} function openCartModal() {document.querySelector('.cart').style.display = 'block'; document.querySelector('.cart').scrollIntoView({behavior: 'smooth'})}
+    checkoutForm.onsubmit = e => {e.preventDefault(); checkoutBody.innerHTML = `<div class="order-success"><span>✅</span><h2>Pedido realizado!</h2><p>Seu pedido demonstrativo foi recebido e já aparece como confirmado.</p><b>Previsão: 35–50 minutos</b><button class="checkout" style="margin-top:22px" onclick="cart=[];updateCart();closeModal('checkoutModal')">Voltar ao cardápio</button></div>`}; search.oninput = e => renderMenu(e.target.value); document.querySelectorAll('.category').forEach(b => b.onclick = () => {document.querySelector('.category.active')?.classList.remove('active'); b.classList.add('active'); document.getElementById(b.dataset.target)?.scrollIntoView()}); document.querySelectorAll('.modal-backdrop').forEach(m => m.onclick = e => {if (e.target === m) m.classList.remove('open')}); renderMenu(); updateCart();
+  </script>
 </body>
+
 </html>

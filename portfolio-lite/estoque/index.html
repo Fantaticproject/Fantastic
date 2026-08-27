@@ -1,197 +1,49 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Auditoria de Acuracidade do Estoque</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      background: #1f1f1f;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    }
-    header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    header img {
-      max-height: 90px;
-    }
-    h1 {
-      font-size: 28px;
-      margin: 20px 0 0;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
-    .section-title {
-      font-size: 20px;
-      font-weight: bold;
-      color: #00bcd4;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #00bcd4;
-      padding-bottom: 5px;
-    }
-    .data-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background-color: #2a2a2a;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-    }
-    .card strong {
-      display: block;
-      color: #cccccc;
-      font-size: 14px;
-      margin-bottom: 5px;
-    }
-    .card span {
-      font-size: 16px;
-      font-weight: bold;
-      color: #ffffff;
-    }
-    .footer-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .footer-info div {
-      flex: 1 1 200px;
-      background: #2a2a2a;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    canvas {
-      background-color: #1f1f1f;
-      border-radius: 10px;
-      padding: 10px;
-    }
+    *{box-sizing:border-box}body{font-family:'Segoe UI',Tahoma,sans-serif;background:#121212;color:#fff;margin:0;padding:20px}.container{max-width:1200px;margin:auto;background:#1f1f1f;padding:40px;border-radius:12px;box-shadow:0 0 20px #0009}header{text-align:center;margin-bottom:40px}h1{font-size:28px;margin:0}.subtitle{margin-top:8px;color:#aaa}.section{margin-bottom:40px}.section-title{font-size:20px;font-weight:700;color:#00bcd4;margin-bottom:20px;border-bottom:2px solid #00bcd4;padding-bottom:5px}.data-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}.card{background:#2a2a2a;padding:20px;border-radius:10px;box-shadow:0 0 10px #0006}.card strong{display:block;color:#ccc;font-size:13px;margin-bottom:7px}.card span{font-size:19px;font-weight:700}.positive{color:#4dd0a8!important}.negative{color:#ff7961!important}.highlight{border:1px solid #00bcd4}.charts{display:grid;grid-template-columns:1fr 1.5fr;gap:20px}.chart-card{min-height:320px;background:#2a2a2a;padding:20px;border-radius:10px}.chart-card h2{font-size:15px;color:#ccc;margin:0 0 15px}.chart-wrap{position:relative;height:260px}.footer-info{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.footer-info div{background:#2a2a2a;padding:20px;border-radius:10px}.back{position:fixed;left:14px;bottom:14px;padding:9px 13px;border-radius:99px;background:#202020;color:#fff;text-decoration:none;font:700 12px Arial}.label{position:fixed;right:14px;bottom:14px;color:#777;font:700 9px Arial;letter-spacing:1px}@media(max-width:750px){body{padding:10px}.container{padding:24px 15px}.charts,.footer-info{grid-template-columns:1fr}.label{display:none}}
   </style>
-<link rel="stylesheet" href="../lite-shell.css"></head>
-<body><a class="fantastic-lite-back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="fantastic-lite-label">VERSÃO LITE · SEM DADOS REAIS</span>
-  <div class="container">
-    <header>
-      <img src="imagens/cosampa.webp" alt="Logo COSAMPA">
-      <h1>AUDITORIA DE ACURACIDADE DO ESTOQUE</h1>
-    </header>
+</head>
+<body>
+  <a class="back" href="../../portfolio.html">← Portfólio Fantastic</a><span class="label">VERSÃO LITE · DADOS FICTÍCIOS</span>
+  <main class="container">
+    <header><h1>AUDITORIA DE ACURACIDADE DO ESTOQUE</h1><div class="subtitle">Resultado consolidado de inventário demonstrativo</div></header>
 
-    <div class="section">
-      <div class="section-title">Indicadores de Valor</div>
-      <div class="data-grid">
-        <div class="card"><strong>Valor do Estoque Inventariado</strong><span>R$ -</span></div>
-        <div class="card"><strong>Valor dos Itens com Sobras</strong><span>R$ -</span></div>
-        <div class="card"><strong>Valor dos Itens com Faltas</strong><span>R$ -</span></div>
-        <div class="card"><strong>Valor da Diferença Net</strong><span>R$ -</span></div>
-        <div class="card"><strong>% de Acuracidade Net</strong><span>0,00%</span></div>
-        <div class="card"><strong>Valor na Compensação</strong><span>R$ -</span></div>
-        <div class="card"><strong>Multa Contratual (25%)</strong><span>R$ -</span></div>
-        <div class="card"><strong>Valor para Ressarcimento</strong><span>R$ -</span></div>
-      </div>
-    </div>
+    <section class="section"><div class="section-title">Indicadores de Valor</div><div class="data-grid">
+      <div class="card"><strong>Valor do Estoque Inventariado</strong><span>R$ 428.750,80</span></div>
+      <div class="card"><strong>Valor dos Itens com Sobras</strong><span class="positive">R$ 18.420,35</span></div>
+      <div class="card"><strong>Valor dos Itens com Faltas</strong><span class="negative">R$ 31.875,90</span></div>
+      <div class="card"><strong>Valor da Diferença Net</strong><span class="negative">- R$ 13.455,55</span></div>
+      <div class="card highlight"><strong>% de Acuracidade Net</strong><span class="positive">96,86%</span></div>
+      <div class="card"><strong>Valor na Compensação</strong><span>R$ 18.420,35</span></div>
+      <div class="card"><strong>Multa Contratual (25%)</strong><span>R$ 3.363,89</span></div>
+      <div class="card"><strong>Valor para Ressarcimento</strong><span class="negative">R$ 16.819,44</span></div>
+    </div></section>
 
-    <div class="section">
-      <div class="section-title">Indicadores de SKU</div>
-      <div class="data-grid">
-        <div class="card"><strong>Qtde de SKU Inventariado</strong><span>0</span></div>
-        <div class="card"><strong>SKU com Sobra</strong><span>0</span></div>
-        <div class="card"><strong>SKU com Falta</strong><span>0</span></div>
-        <div class="card"><strong>SKU com Divergências</strong><span>0</span></div>
-        <div class="card"><strong>% de Acuracidade de SKU</strong><span>0,00%</span></div>
-      </div>
-    </div>
+    <section class="section"><div class="section-title">Indicadores de SKU</div><div class="data-grid">
+      <div class="card"><strong>Quantidade de SKU Inventariado</strong><span>486</span></div>
+      <div class="card"><strong>SKU com Sobra</strong><span>29</span></div>
+      <div class="card"><strong>SKU com Falta</strong><span>41</span></div>
+      <div class="card"><strong>SKU com Divergências</strong><span>58</span></div>
+      <div class="card highlight"><strong>% de Acuracidade de SKU</strong><span class="positive">88,07%</span></div>
+    </div></section>
 
-    <div class="section">
-      <div class="section-title">Compensação por Grupo de Mercadoria</div>
-      <div class="data-grid">
-        <div class="card"><strong>ISOLADORES</strong><span>R$ -</span></div>
-        <div class="card"><strong>CONECT/TERM/EMEND RD</strong><span>R$ -</span></div>
-        <div class="card"><strong>TC E TP</strong><span>R$ -</span></div>
-        <div class="card"><strong>MEDIDOR DE ENERGIA</strong><span>R$ -</span></div>
-        <div class="card"><strong>FERRAGENS RD/LT/SE</strong><span>R$ -</span></div>
-        <div class="card"><strong>PRE-MOLDADOS</strong><span>R$ -</span></div>
-        <div class="card"><strong>CHAVE FUSIVEL MT</strong><span>R$ -</span></div>
-        <div class="card"><strong>ELO FUSIVEL</strong><span>R$ -</span></div>
-        <div class="card"><strong>FIOS/CABOS ALUMINIO</strong><span>R$ -</span></div>
-        <div class="card"><strong>SELO LACRACAO DE MED</strong><span>R$ -</span></div>
-        <div class="card"><strong>INSTRUMENTO MEDICAO</strong><span>R$ -</span></div>
-        <div class="card"><strong>PLACAS/PELICULAS REDE</strong><span>R$ -</span></div>
-        <div class="card"><strong>ACESSORIOS REDE DIST</strong><span>R$ -</span></div>
-        <div class="card"><strong>CHICOTE DE MEDICAO</strong><span>R$ -</span></div>
-        <div class="card"><strong>CHAVE DE CALIBRACAO</strong><span>R$ -</span></div>
-        <div class="card"><strong>TOTAL GERAL</strong><span>R$ -</span></div>
-      </div>
-    </div>
+    <section class="section"><div class="section-title">Visualização da Auditoria</div><div class="charts"><article class="chart-card"><h2>Acuracidade financeira</h2><div class="chart-wrap"><canvas id="graficoAcuracidade"></canvas></div></article><article class="chart-card"><h2>Distribuição dos SKUs</h2><div class="chart-wrap"><canvas id="graficoSKU"></canvas></div></article></div></section>
 
-    <div class="section">
-      <div class="section-title">Informações Finais</div>
-      <div class="footer-info">
-        <div><strong>Empresa:</strong><br>COSAMPA</div>
-        <div><strong>Local do depósito:</strong><br>SUZANO</div>
-        <div><strong>Responsável do depósito:</strong><br>ELAINE</div>
-        <div><strong>Gestor do Contrato:</strong><br>JOELSON</div>
-        <div><strong>Centro/Depósito:</strong><br>----------</div>
-        <div><strong>Período das contagens:</strong><br>----------</div>
-      </div>
-    </div>
-  </div>
+    <section class="section"><div class="section-title">Compensação por Grupo de Mercadoria</div><div class="data-grid">
+      <div class="card"><strong>ISOLADORES</strong><span>R$ 2.840,30</span></div><div class="card"><strong>CONECTORES / TERMINAIS / EMENDAS</strong><span>R$ 1.975,80</span></div><div class="card"><strong>TC E TP</strong><span>R$ 2.310,40</span></div><div class="card"><strong>MEDIDOR DE ENERGIA</strong><span>R$ 3.680,15</span></div><div class="card"><strong>FERRAGENS DE REDE</strong><span>R$ 1.460,70</span></div><div class="card"><strong>PRÉ-MOLDADOS</strong><span>R$ 820,00</span></div><div class="card"><strong>CHAVE FUSÍVEL MT</strong><span>R$ 1.930,25</span></div><div class="card"><strong>ELO FUSÍVEL</strong><span>R$ 540,90</span></div><div class="card"><strong>FIOS E CABOS DE ALUMÍNIO</strong><span>R$ 1.285,75</span></div><div class="card"><strong>ACESSÓRIOS DE REDE</strong><span>R$ 940,10</span></div><div class="card"><strong>INSTRUMENTOS DE MEDIÇÃO</strong><span>R$ 420,00</span></div><div class="card"><strong>OUTROS GRUPOS</strong><span>R$ 216,00</span></div><div class="card highlight"><strong>TOTAL GERAL</strong><span>R$ 18.420,35</span></div>
+    </div></section>
 
+    <section class="section"><div class="section-title">Informações do Inventário</div><div class="footer-info"><div><strong>Unidade auditada</strong><br>Centro de distribuição demonstrativo</div><div><strong>Período das contagens</strong><br>18/08/2026 a 22/08/2026</div><div><strong>Situação</strong><br>Auditoria concluída</div></div></section>
+  </main>
   <script>
-    const ctx1 = document.getElementById('graficoAcuracidade').getContext('2d');
-    new Chart(ctx1, {
-      type: 'doughnut',
-      data: {
-        labels: ['Acuracidade', 'Erros'],
-        datasets: [{
-          label: 'Acuracidade Net',
-          data: [0, 100],
-          backgroundColor: ['#00bcd4', '#ff3d00'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { labels: { color: 'white' } }
-        }
-      }
-    });
-
-    const ctx2 = document.getElementById('graficoSKU').getContext('2d');
-    new Chart(ctx2, {
-      type: 'bar',
-      data: {
-        labels: ['Inventariado', 'Sobra', 'Falta', 'Divergências'],
-        datasets: [{
-          label: 'SKUs',
-          data: [0, 0, 0, 0],
-          backgroundColor: '#00bcd4'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          x: { ticks: { color: 'white' } },
-          y: { ticks: { color: 'white' } }
-        },
-        plugins: {
-          legend: { labels: { color: 'white' } }
-        }
-      }
-    });
+    Chart.defaults.color='#ddd';Chart.defaults.borderColor='#ffffff1a';
+    new Chart(document.getElementById('graficoAcuracidade'),{type:'doughnut',data:{labels:['Acuracidade','Diferença'],datasets:[{data:[96.86,3.14],backgroundColor:['#00bcd4','#ff5c45'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'67%',plugins:{legend:{position:'bottom'}}}});
+    new Chart(document.getElementById('graficoSKU'),{type:'bar',data:{labels:['Inventariados','Com sobra','Com falta','Divergentes'],datasets:[{label:'Quantidade de SKUs',data:[486,29,41,58],backgroundColor:['#00bcd4','#4dd0a8','#ff7961','#ffb74d'],borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true}},plugins:{legend:{display:false}}}});
   </script>
-</body>
-</html>
+</body></html>
