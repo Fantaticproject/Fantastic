@@ -1,0 +1,786 @@
+/* =========================================================
+   FANTASTIC — SISTEMA VISUAL UNIFICADO
+   Carregado depois de site.css para organizar todo o projeto.
+   ========================================================= */
+:root {
+  --f-bg: #f3f2ee;
+  --f-paper: #fbfaf7;
+  --f-card: #ffffff;
+  --f-night: #0c0c10;
+  --f-night-2: #15151b;
+  --f-ink: #15151a;
+  --f-muted: #68686f;
+  --f-line: rgba(20, 20, 26, 0.11);
+  --f-violet: #7650f6;
+  --f-blue: #2c66f5;
+  --f-gold: #e9b938;
+  --f-green: #27a968;
+  --f-orange: #f16f38;
+  --f-accent: var(--f-blue);
+  --f-accent-2: var(--f-violet);
+  --f-accent-soft: color-mix(in srgb, var(--f-accent) 9%, white);
+  --f-content: 1280px;
+  --f-wide: 1600px;
+  --f-radius-sm: 14px;
+  --f-radius: 24px;
+  --f-radius-lg: 38px;
+  --f-shadow: 0 24px 70px rgba(14, 14, 22, 0.09);
+}
+
+body:has(.tint-blue) {
+  --f-accent: var(--f-blue);
+  --f-accent-2: #6890ff;
+}
+body:has(.tint-purple) {
+  --f-accent: var(--f-violet);
+  --f-accent-2: #ad74ff;
+}
+body:has(.tint-green) {
+  --f-accent: var(--f-green);
+  --f-accent-2: #72d49d;
+}
+body[data-page="solucoes"] {
+  --f-accent: var(--f-orange);
+  --f-accent-2: var(--f-gold);
+}
+body[data-page="portfolio"] {
+  --f-accent: var(--f-violet);
+  --f-accent-2: var(--f-gold);
+}
+body[data-page="empresa"] {
+  --f-accent: var(--f-violet);
+  --f-accent-2: var(--f-gold);
+}
+body[data-page="contato"] {
+  --f-accent: var(--f-blue);
+  --f-accent-2: var(--f-violet);
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--f-night);
+}
+body {
+  overflow-x: hidden;
+  background: var(--f-bg) !important;
+  color: var(--f-ink);
+}
+main {
+  position: relative;
+}
+
+/* O palco é limpo. Elementos antigos que competiam com o conteúdo saem. */
+.energy-layer,
+.marquee,
+.scroll-cue {
+  display: none !important;
+}
+.title-alive,
+.title-pulse,
+.card:nth-child(n),
+.orbit {
+  animation: none !important;
+}
+.hero::before,
+.hero::after {
+  display: none !important;
+}
+
+/* Cabeçalho */
+.header {
+  height: 90px !important;
+  padding-inline: max(5vw, calc((100vw - var(--f-wide)) / 2)) !important;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(12, 12, 16, 0.93) !important;
+  box-shadow: none;
+  backdrop-filter: blur(22px);
+}
+.header .logo {
+  width: 126px;
+  height: 84px;
+}
+.header .logo img {
+  width: 126px;
+  height: 96px;
+  object-fit: cover;
+}
+.nav {
+  gap: clamp(18px, 1.75vw, 30px) !important;
+}
+.nav a {
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 0.2s ease;
+}
+.nav a:hover,
+.nav a.active {
+  color: var(--f-gold) !important;
+}
+.nav-cta {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  background: rgba(255, 255, 255, 0.04);
+}
+.nav-cta:hover {
+  border-color: var(--f-gold) !important;
+}
+
+/* Navegação interna vira ponte entre as páginas, não uma faixa solta. */
+.subnav {
+  top: 90px !important;
+  min-height: 60px;
+  padding: 10px max(5vw, calc((100vw - var(--f-wide)) / 2)) !important;
+  align-items: center;
+  gap: 8px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: var(--f-night-2) !important;
+}
+.subnav a,
+.portfolio-filter button {
+  color: rgba(255, 255, 255, 0.68) !important;
+  border-color: rgba(255, 255, 255, 0.13) !important;
+  background: transparent !important;
+}
+.subnav a:hover,
+.subnav a.active,
+.portfolio-filter button:hover,
+.portfolio-filter button.active {
+  color: #111 !important;
+  border-color: #fff !important;
+  background: #fff !important;
+}
+
+/* Tipografia e microelementos */
+.eyebrow {
+  color: var(--f-accent-2) !important;
+  letter-spacing: 0.16em;
+}
+.button {
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 22px;
+  border-radius: 999px;
+}
+.button.primary {
+  color: #fff;
+  border-color: var(--f-ink);
+  background: var(--f-ink);
+}
+.button.ghost {
+  background: transparent;
+}
+.actions {
+  align-items: center;
+}
+
+/* ABERTURAS — todas são capítulos do mesmo universo. */
+.page-hero,
+.premium-hero,
+.portfolio-hero {
+  position: relative;
+  min-height: 560px !important;
+  padding: clamp(105px, 11vw, 175px)
+    max(6vw, calc((100vw - var(--f-content)) / 2)) clamp(95px, 9vw, 140px) !important;
+  align-items: center !important;
+  color: #fff !important;
+  border: 0 !important;
+  background:
+    radial-gradient(
+      circle at 84% 42%,
+      color-mix(in srgb, var(--f-accent) 30%, transparent),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 74% 70%,
+      color-mix(in srgb, var(--f-accent-2) 16%, transparent),
+      transparent 28%
+    ),
+    linear-gradient(125deg, var(--f-night), #12121a 62%, #0d0d13) !important;
+  isolation: isolate;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: "" !important;
+  position: absolute !important;
+  display: block !important;
+  z-index: -1;
+  width: clamp(350px, 38vw, 680px) !important;
+  height: auto !important;
+  aspect-ratio: 1;
+  top: 50% !important;
+  right: max(2vw, calc((100vw - var(--f-wide)) / 2)) !important;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50% !important;
+  box-shadow:
+    inset 0 0 0 80px rgba(255, 255, 255, 0.013),
+    inset 0 0 0 81px rgba(255, 255, 255, 0.055),
+    0 0 120px color-mix(in srgb, var(--f-accent) 14%, transparent) !important;
+  animation: none !important;
+}
+.page-hero::after {
+  content: "F!" !important;
+  position: absolute;
+  z-index: -1;
+  right: max(6vw, calc((100vw - var(--f-wide)) / 2));
+  bottom: -0.2em !important;
+  color: rgba(255, 255, 255, 0.025) !important;
+  font: 900 clamp(12rem, 24vw, 26rem)/1 Manrope !important;
+  letter-spacing: -0.12em;
+  animation: none !important;
+}
+.page-hero > div {
+  max-width: 900px !important;
+}
+.page-hero h1 {
+  max-width: 900px;
+  color: #fff;
+  font-size: clamp(3.4rem, 6.4vw, 6.8rem) !important;
+}
+.page-hero .lead {
+  max-width: 760px;
+  color: #b9b9c3 !important;
+}
+.page-hero .blue,
+.page-hero .purple,
+.page-hero .green,
+.page-hero .orange {
+  color: transparent !important;
+  background: linear-gradient(100deg, var(--f-accent), var(--f-accent-2));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+/* A página se encaixa fisicamente na abertura. */
+.page-hero + .page-section,
+.subnav + main > .page-hero + .page-section {
+  margin-top: -34px;
+}
+.page-section {
+  position: relative;
+  padding: clamp(82px, 8vw, 125px)
+    max(6vw, calc((100vw - var(--f-content)) / 2)) !important;
+  border: 0 !important;
+  background: var(--f-paper) !important;
+}
+.page-section.white {
+  z-index: 3;
+  border-radius: var(--f-radius-lg) var(--f-radius-lg) 0 0;
+  background:
+    radial-gradient(circle at 90% 0, var(--f-accent-soft), transparent 24rem),
+    var(--f-paper) !important;
+  box-shadow: 0 -25px 70px rgba(0, 0, 0, 0.13);
+}
+.page-section.white + .page-section {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--f-accent) 4%, var(--f-bg)),
+    var(--f-bg)
+  ) !important;
+}
+.page-section > h2,
+.section-head h2 {
+  max-width: 840px;
+}
+.page-section h2::after,
+.section h2::after {
+  content: "";
+  display: block;
+  width: 86px !important;
+  height: 4px !important;
+  margin-top: 24px;
+  border-radius: 9px;
+  background: linear-gradient(
+    90deg,
+    var(--f-accent),
+    var(--f-accent-2)
+  ) !important;
+}
+
+/* Cards — uma família, não vários retângulos desconectados. */
+.feature-grid,
+.cards.three {
+  counter-reset: unified-card;
+  gap: 16px !important;
+}
+.feature-grid {
+  margin-top: 52px !important;
+}
+.feature,
+.project,
+.card {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  padding: 30px !important;
+  border: 1px solid var(--f-line) !important;
+  border-radius: var(--f-radius) !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease !important;
+}
+.feature::before,
+.project::before {
+  counter-increment: unified-card;
+  content: "0" counter(unified-card);
+  display: grid;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 34px;
+  place-items: center;
+  color: var(--f-accent);
+  border-radius: 12px;
+  background: var(--f-accent-soft);
+  font: 900 0.67rem Inter;
+}
+.feature::after,
+.project::after,
+.card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  opacity: 0.7;
+  background: linear-gradient(
+    90deg,
+    var(--f-accent),
+    var(--f-accent-2),
+    transparent
+  );
+}
+.feature:hover,
+.project:hover,
+.card:hover {
+  transform: translateY(-6px) !important;
+  border-color: color-mix(
+    in srgb,
+    var(--f-accent) 35%,
+    var(--f-line)
+  ) !important;
+  box-shadow: var(--f-shadow) !important;
+}
+.feature h3,
+.project h3 {
+  font-size: 1.42rem;
+}
+.feature p,
+.project p {
+  max-width: 560px;
+}
+.project .tag-row {
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+/* Cards da home mantêm suas cores, mas obedecem à mesma geometria. */
+.cards.three .card {
+  min-height: 290px;
+  border-top-width: 1px !important;
+}
+.cards.three .card > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--f-accent-soft);
+}
+.cards.three .accent-blue {
+  --f-accent: var(--f-blue);
+  --f-accent-2: #6c93ff;
+}
+.cards.three .accent-purple {
+  --f-accent: var(--f-violet);
+  --f-accent-2: #ae77ff;
+}
+.cards.three .accent-green {
+  --f-accent: var(--f-green);
+  --f-accent-2: #79d6a2;
+}
+
+/* O bloco escuro é a conclusão do grupo de cards. */
+.wide-card {
+  position: relative;
+  margin-top: 18px !important;
+  padding: clamp(42px, 5vw, 70px) !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--f-radius-lg) !important;
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      color-mix(in srgb, var(--f-accent) 28%, transparent),
+      transparent 27%
+    ),
+    linear-gradient(125deg, var(--f-night), var(--f-night-2)) !important;
+  box-shadow: 0 34px 80px rgba(0, 0, 0, 0.17) !important;
+}
+.wide-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 64px;
+  width: 105px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--f-accent), var(--f-accent-2));
+  border-radius: 0 0 8px 8px;
+}
+.wide-card h2::after {
+  display: none;
+}
+.wide-card .list li::before {
+  color: var(--f-accent-2);
+}
+
+/* Provas e demonstrações continuam especiais, mas seguem o fluxo da seção. */
+.gp-proof,
+.automation-proof {
+  margin-top: clamp(90px, 9vw, 140px) !important;
+  padding-top: clamp(60px, 6vw, 90px) !important;
+  border-top: 1px solid var(--f-line);
+}
+.gp-intro {
+  position: relative;
+  margin-bottom: 42px !important;
+}
+.gp-intro::before {
+  content: "DEMONSTRAÇÃO INTERATIVA";
+  position: absolute;
+  left: 0;
+  top: -38px;
+  color: var(--f-accent);
+  font-size: 0.63rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+.gp-shell {
+  border-color: color-mix(in srgb, var(--f-accent) 17%, #dce9e3) !important;
+  border-radius: var(--f-radius-lg) !important;
+  box-shadow: var(--f-shadow) !important;
+}
+
+/* Home — hero, serviços e processo viram uma história contínua. */
+body[data-page="inicio"] .hero {
+  position: relative;
+  min-height: calc(100vh - 90px);
+  padding: clamp(100px, 10vw, 160px)
+    max(6vw, calc((100vw - var(--f-content)) / 2)) clamp(120px, 12vw, 180px) !important;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 78% 44%,
+      rgba(44, 102, 245, 0.28),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 86% 67%,
+      rgba(118, 80, 246, 0.2),
+      transparent 24%
+    ),
+    linear-gradient(125deg, var(--f-night), #12121a) !important;
+}
+body[data-page="inicio"] .hero h1 {
+  color: #fff;
+}
+body[data-page="inicio"] .hero .lead {
+  color: #b9b9c3;
+}
+body[data-page="inicio"] .hero .blue {
+  color: transparent;
+  background: linear-gradient(100deg, #6890ff, #b786ff, var(--f-gold));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+body[data-page="inicio"] .hero .ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+body[data-page="inicio"] .hero .proof {
+  color: rgba(255, 255, 255, 0.63);
+}
+body[data-page="inicio"] .orbit {
+  display: grid !important;
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 0 110px rgba(44, 102, 245, 0.14);
+}
+body[data-page="inicio"] .orbit::before {
+  border-color: rgba(255, 255, 255, 0.16);
+}
+body[data-page="inicio"] .orbit::after {
+  border-top-color: var(--f-gold);
+  border-right-color: rgba(118, 80, 246, 0.55);
+}
+body[data-page="inicio"] .orbit-core {
+  background: #fff;
+  color: var(--f-night);
+}
+body[data-page="inicio"] .section.white {
+  position: relative;
+  z-index: 3;
+  margin-top: -38px;
+  padding-top: clamp(100px, 10vw, 145px) !important;
+  border-radius: var(--f-radius-lg) var(--f-radius-lg) 0 0;
+  background:
+    radial-gradient(
+      circle at 90% 0,
+      rgba(118, 80, 246, 0.09),
+      transparent 25rem
+    ),
+    var(--f-paper) !important;
+  box-shadow: 0 -25px 70px rgba(0, 0, 0, 0.14);
+}
+body[data-page="inicio"] .section.split {
+  padding: clamp(95px, 9vw, 140px)
+    max(6vw, calc((100vw - var(--f-content)) / 2)) !important;
+  border-top: 1px solid var(--f-line);
+  background: linear-gradient(135deg, #eceaf7, var(--f-bg)) !important;
+}
+.steps {
+  border-top: 0 !important;
+  counter-reset: steps;
+}
+.steps li {
+  position: relative;
+  grid-template-columns: 62px 145px 1fr !important;
+  align-items: center;
+  padding: 22px 0 !important;
+}
+.steps li::before {
+  counter-increment: steps;
+  content: "0" counter(steps);
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--f-violet);
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+  font: 900 0.68rem Inter;
+}
+
+/* Quem somos */
+.capability-grid {
+  border-top: 1px solid var(--f-line) !important;
+}
+.capability {
+  padding: clamp(42px, 5vw, 70px) 0 !important;
+}
+.capability-number {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  color: var(--f-accent);
+  border-radius: 15px;
+  background: var(--f-accent-soft);
+}
+.capability .button {
+  border-color: var(--f-line);
+}
+.project-lab {
+  border-radius: 0 !important;
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(118, 80, 246, 0.21),
+      transparent 27%
+    ),
+    var(--f-night) !important;
+}
+
+/* Portfólio */
+.portfolio-grid {
+  gap: 20px !important;
+}
+.portfolio-item {
+  overflow: hidden;
+  border: 1px solid var(--f-line) !important;
+  border-radius: var(--f-radius) !important;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(15, 15, 22, 0.06);
+}
+.portfolio-copy {
+  padding: 32px !important;
+}
+.portfolio-copy h2::after {
+  display: none;
+}
+
+/* Contato */
+.contact-grid {
+  align-items: start;
+}
+.contact-box {
+  border: 1px solid var(--f-line) !important;
+  border-radius: var(--f-radius) !important;
+  box-shadow: var(--f-shadow);
+}
+.contact-box input,
+.contact-box select,
+.contact-box textarea {
+  border-color: var(--f-line) !important;
+  background: var(--f-bg) !important;
+}
+
+/* Fechamento comum a todas as páginas */
+.cta,
+.premium-cta {
+  position: relative;
+  margin: 0 max(2.5vw, calc((100vw - var(--f-wide)) / 2)) 48px !important;
+  padding: clamp(85px, 9vw, 135px)
+    max(6vw, calc((100vw - var(--f-content)) / 2)) !important;
+  overflow: hidden;
+  border-radius: var(--f-radius-lg) !important;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 12% 15%,
+      rgba(118, 80, 246, 0.45),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 85%,
+      rgba(233, 185, 56, 0.18),
+      transparent 24%
+    ),
+    linear-gradient(120deg, #15151d, #20203a) !important;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.16);
+}
+.cta h2 {
+  max-width: 1050px;
+  margin-inline: auto;
+}
+.cta h2 span {
+  color: #cfc6ff !important;
+}
+.cta h2::after {
+  display: none;
+}
+.cta .actions {
+  justify-content: center;
+}
+.cta .button.light {
+  color: var(--f-ink);
+  background: #fff;
+}
+.cta .button.ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.footer {
+  min-height: 135px;
+  padding: 35px max(5vw, calc((100vw - var(--f-wide)) / 2)) !important;
+  align-items: center;
+  color: #8d8d98 !important;
+  background: var(--f-night) !important;
+}
+
+/* Movimento pontual, nunca permanente. */
+@media (prefers-reduced-motion: no-preference) {
+  .feature,
+  .project,
+  .card,
+  .portfolio-item,
+  .button {
+    transition:
+      transform 0.24s ease,
+      box-shadow 0.24s ease,
+      border-color 0.24s ease;
+  }
+}
+
+@media (max-width: 1000px) {
+  .page-hero::before {
+    right: -180px !important;
+    opacity: 0.6;
+  }
+  body[data-page="inicio"] .hero {
+    grid-template-columns: 1fr;
+  }
+  body[data-page="inicio"] .orbit {
+    width: min(480px, 82vw);
+    margin: 70px auto 0;
+  }
+  .steps li {
+    grid-template-columns: 58px 1fr !important;
+  }
+  .steps li span {
+    grid-column: 2;
+  }
+  .cta {
+    margin-inline: 16px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: 76px !important;
+  }
+  .nav {
+    top: 75px !important;
+    background: var(--f-night) !important;
+  }
+  .subnav {
+    top: 76px !important;
+  }
+  .page-hero {
+    min-height: 490px !important;
+  }
+  .capability .button {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 70px !important;
+  }
+  .nav {
+    top: 69px !important;
+  }
+  .subnav {
+    top: 70px !important;
+  }
+  .page-hero {
+    min-height: 450px !important;
+    padding-top: 90px !important;
+  }
+  .page-hero h1 {
+    font-size: 2.85rem !important;
+  }
+  .page-hero::before {
+    right: -210px !important;
+  }
+  .page-section.white,
+  body[data-page="inicio"] .section.white {
+    border-radius: 24px 24px 0 0;
+  }
+  .feature,
+  .project,
+  .card {
+    min-height: 0;
+    padding: 24px !important;
+  }
+  .wide-card {
+    border-radius: 24px !important;
+  }
+  .wide-card::before {
+    left: 30px;
+  }
+  .cta {
+    margin: 0 10px 28px !important;
+    border-radius: 24px !important;
+  }
+  .footer {
+    grid-template-columns: 1fr !important;
+  }
+}
