@@ -1,8 +1,8 @@
 (() => {
   "use strict";
   const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
-  // Crisp vector logo; text remains in HTML as no-JS fallback.
-  $$(".logo").forEach(el=>{el.innerHTML='<img src="assets/logo-fantastic.svg" alt="Fantastic!" width="560" height="120">';});
+  // Keep the original Fantastic brand artwork.
+  $$(".logo").forEach(el=>{el.innerHTML='<img src="assets/logo-fantastic.png" alt="Fantastic!">';});
   const menu=$(".menu"), nav=$(".nav");
   if(menu&&nav){
     const setMenu=open=>{nav.classList.toggle("open",open);document.body.classList.toggle("menu-open",open);menu.setAttribute("aria-expanded",String(open));menu.textContent=open?"Fechar":"Menu";};
