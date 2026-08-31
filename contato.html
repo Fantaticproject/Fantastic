@@ -1,101 +1,69 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,viewport-fit=cover"
-    />
-    <meta name="theme-color" content="#111117" />
-    <title>Contato | Fantastic!</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Manrope:wght@600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/site.css" />
-    <link rel="stylesheet" href="css/unified.css" />
-  </head>
-  <body data-page="contato">
-    <header class="header">
-      <a class="logo" href="index.html">FANTASTIC!</a
-      ><button class="menu">Menu</button>
-      <nav class="nav">
-        <a href="index.html">Início</a><a href="quem-somos.html">Quem somos</a
-        ><a href="servicos.html">Serviços</a><a href="solucoes.html">Soluções</a
-        ><a href="portfolio.html">Projetos</a
-        ><a class="nav-cta" data-nav="contato" href="contato.html">Contato</a>
-      </nav>
-    </header>
-    <main>
-      <section class="page-hero tint-blue">
-        <div>
-          <span class="eyebrow">VAMOS CONVERSAR</span>
-          <h1>
-            Conte o problema.<br /><span class="blue"
-              >A solução vem depois.</span
-            >
-          </h1>
-          <p class="lead">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#111117" name="theme-color"/>
+<title>Contato | Fantastic!</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="css/site.css" rel="stylesheet"/>
+<link href="css/unified.css" rel="stylesheet"/>
+</head>
+<body data-page="contato">
+<header class="header">
+<a class="logo" href="index.html">FANTASTIC!</a><button class="menu">Menu</button>
+<nav class="nav">
+<a href="index.html">Início</a><a href="servicos.html">Serviços</a><a href="solucoes.html">Soluções</a><a href="portfolio.html">Projetos</a><a class="nav-cta" data-nav="contato" href="contato.html">Contato</a>
+</nav>
+</header>
+<main>
+<section class="page-hero tint-blue">
+<div>
+<span class="eyebrow">VAMOS CONVERSAR</span>
+<h1>
+            Conte o problema.<br/><span class="blue">A solução vem depois.</span>
+</h1>
+<p class="lead">
             Não precisa escrever um briefing perfeito. Explique com suas
             palavras o que precisa melhorar.
           </p>
-        </div>
-      </section>
-      <section class="page-section">
-        <div class="contact-grid">
-          <div>
-            <span class="eyebrow">ANTES DE ENVIAR</span>
-            <h2>O básico já<br /><span class="purple">é suficiente.</span></h2>
-            <p class="intro">
+</div>
+</section>
+<section class="page-section">
+<div class="contact-grid">
+<div>
+<span class="eyebrow">ANTES DE ENVIAR</span>
+<h2>O básico já<br/><span class="purple">é suficiente.</span></h2>
+<p class="intro">
               Se puder, diga como funciona hoje, qual parte dá mais trabalho e o
               que você gostaria que acontecesse no lugar.
             </p>
-            <div class="tag-row">
-              <a class="tag" href="contato.html?tipo=Site">Site</a
-              ><a class="tag" href="contato.html?tipo=Sistema">Sistema</a
-              ><a class="tag" href="contato.html?tipo=Automação%20ou%20planilha"
-                >Automação</a
-              ><a class="tag" href="contato.html?tipo=Ainda%20não%20sei"
-                >Ainda não sei</a
-              >
-            </div>
-          </div>
-          <form class="contact-box" data-form>
-            <label for="nome">Seu nome</label
-            ><input
-              id="nome"
-              name="nome"
-              required
-              placeholder="Como podemos te chamar?"
-            /><label for="tipo">O que você procura?</label
-            ><select id="tipo" name="tipo">
-              <option>Site</option>
-              <option>Sistema</option>
-              <option>Automação ou planilha</option>
-              <option>Ainda não sei</option></select
-            ><label for="mensagem">Conte sua necessidade</label
-            ><textarea
-              id="mensagem"
-              name="mensagem"
-              required
-              placeholder="Hoje eu faço assim... e gostaria de..."
-            ></textarea
-            ><button class="button primary" type="submit">
+<div class="tag-row">
+<a class="tag" href="contato.html?tipo=Site">Site</a><a class="tag" href="contato.html?tipo=Sistema">Sistema</a><a class="tag" href="contato.html?tipo=Automação%20ou%20planilha">Automação</a><a class="tag" href="contato.html?tipo=Ainda%20não%20sei">Ainda não sei</a>
+</div>
+</div>
+<form class="contact-box" data-form="">
+<label for="nome">Seu nome</label><input id="nome" name="nome" placeholder="Como podemos te chamar?" required=""/><label for="tipo">O que você procura?</label><select id="tipo" name="tipo">
+<option>Site</option>
+<option>Sistema</option>
+<option>Automação ou planilha</option>
+<option>Ainda não sei</option></select><label for="mensagem">Conte sua necessidade</label><textarea id="mensagem" name="mensagem" placeholder="Hoje eu faço assim... e gostaria de..." required=""></textarea><button class="button primary" type="submit">
               Continuar pelo WhatsApp
             </button>
-            <p class="small">
+<p class="small">
               Ao continuar, sua mensagem será organizada e aberta no WhatsApp
               para confirmação.
             </p>
-          </form>
-        </div>
-      </section>
-    </main>
-    <footer class="footer">
-      <a class="logo" href="index.html">FANTASTIC!</a>
-      <p>Vamos tirar sua ideia do papel.</p>
-      <p>© 2026 Fantastic!</p>
-    </footer>
-    <script src="js/site.js"></script>
-  </body>
+</form>
+</div>
+</section>
+</main>
+<footer class="footer">
+<a class="logo" href="index.html">FANTASTIC!</a>
+<p>Vamos tirar sua ideia do papel.</p>
+<p>© 2026 Fantastic!</p>
+</footer>
+<script src="js/site.js"></script>
+</body>
 </html>
