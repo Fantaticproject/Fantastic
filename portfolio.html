@@ -10,10 +10,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="css/site.css" rel="stylesheet"/>
 <link href="css/unified.css" rel="stylesheet"/>
+
+<style id="portfolio-magic-animation">
+/* Animação autônoma: funciona inclusive abrindo portfolio.html via file:// */
+.portfolio-hero .magic-text{
+  display:inline-block !important;
+  color:transparent !important;
+  -webkit-text-fill-color:transparent !important;
+  background-image:linear-gradient(90deg,#7b48ff 0%,#2f83ff 18%,#31d7ff 34%,#be4cff 50%,#ff4f9e 66%,#ffc83d 82%,#7b48ff 100%) !important;
+  background-size:300% 100% !important;
+  background-position:0% 50%;
+  background-clip:text !important;
+  -webkit-background-clip:text !important;
+  animation-name:fantasticFormaFuncao !important;
+  animation-duration:2.2s !important;
+  animation-timing-function:linear !important;
+  animation-delay:0s !important;
+  animation-iteration-count:infinite !important;
+  animation-direction:normal !important;
+  animation-fill-mode:none !important;
+  animation-play-state:running !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+@keyframes fantasticFormaFuncao{
+  0%{background-position:0% 50%}
+  100%{background-position:300% 50%}
+}
+@media (prefers-reduced-motion: reduce){
+  .portfolio-hero .magic-text{
+    animation-duration:2.2s !important;
+    animation-iteration-count:infinite !important;
+    animation-play-state:running !important;
+  }
+}
+</style>
 </head>
 <body data-page="portfolio">
 <header class="header">
-<a class="logo" href="index.html">FANTASTIC!</a><button class="menu">Menu</button>
+<a class="logo" href="index.html"><img src="assets/fantastic-logo-main.png" alt="Fantastic"/></a><button class="menu">Menu</button>
 <nav class="nav">
 <a href="index.html">Início</a><a href="servicos.html">Serviços</a><a href="solucoes.html">Soluções</a><a data-nav="portfolio" href="portfolio.html">Projetos</a><a class="nav-cta" href="contato.html">Contato</a>
 </nav>
@@ -33,7 +68,7 @@
 </div>
 </section>
 <nav class="subnav portfolio-filter">
-<button class="active" data-filter="todos">Todos</button><button data-filter="sistema">Sistemas</button><button data-filter="automacao">Ferramentas</button><button data-filter="site">Sites</button>
+<button class="active" data-filter="todos"><span>Todos</span><small>06 projetos</small></button><button data-filter="sistema"><span>Sistemas</span><small>Aplicações web</small></button><button data-filter="automacao"><span>Automações</span><small>Fluxos e dados</small></button><button data-filter="site"><span>Sites</span><small>Experiências web</small></button>
 </nav>
 <section class="page-section white">
 <div class="portfolio-grid">
@@ -139,7 +174,7 @@
 </section>
 </main>
 <footer class="footer">
-<a class="logo" href="index.html">FANTASTIC!</a>
+<a class="logo" href="index.html"><img src="assets/fantastic-logo-main.png" alt="Fantastic"/></a>
 <p>Projetos que transformam ideias em ferramentas.</p>
 <p>© 2026 Fantastic!</p>
 </footer>

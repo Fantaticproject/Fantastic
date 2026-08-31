@@ -1688,3 +1688,318 @@ html{scroll-behavior:smooth}body{min-width:0;text-rendering:optimizeLegibility;-
 @media (max-width:420px){:root{--mobile-gutter:16px}.page-hero h1,body[data-page="inicio"] .hero h1{font-size:clamp(2.25rem,11.7vw,3.2rem)!important}.section h2,.page-section h2,.section-head h2{font-size:clamp(1.9rem,9.5vw,2.7rem)!important}.feature,.project,.card{padding:22px!important}.file-chips span:nth-child(3){display:none}}
 @media (hover:none){.card:hover,.feature:hover,.project:hover{transform:none!important}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1!important;transform:none!important}}
+
+
+/* ===== V3 polish: header, portfolio and stable motion ===== */
+.header{
+  min-height:108px!important;height:108px!important;
+  padding-inline:max(4vw,calc((100vw - var(--f-wide))/2))!important;
+  background:linear-gradient(180deg,rgba(8,8,12,.98),rgba(13,13,19,.96))!important;
+  border-bottom:1px solid rgba(245,197,80,.16)!important;
+  box-shadow:0 12px 36px rgba(0,0,0,.24)!important;
+  backdrop-filter:blur(18px) saturate(125%);
+}
+.header::after{content:"";position:absolute;left:max(4vw,calc((100vw - var(--f-wide))/2));right:max(4vw,calc((100vw - var(--f-wide))/2));bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(245,197,80,.55),rgba(120,71,255,.45),transparent);pointer-events:none}
+.header .logo{width:184px!important;height:96px!important;flex:0 0 184px!important;border-radius:14px!important;overflow:hidden!important;position:relative}
+.header .logo img{width:184px!important;height:122px!important;max-width:none!important;object-fit:cover!important;object-position:center 53%!important;transform:scale(1.05);filter:none!important}
+.subnav{top:108px!important}
+.portfolio-hero .magic-text{display:inline!important;animation:none!important;background-size:100% 100%!important}
+.portfolio-hero h1.reveal{transform:none!important}
+.portfolio-filter{
+  width:min(920px,calc(100% - 40px));margin:0 auto!important;top:108px!important;
+  padding:8px!important;gap:6px!important;justify-content:stretch!important;
+  border:1px solid rgba(255,255,255,.10)!important;border-radius:20px!important;
+  background:rgba(15,15,21,.96)!important;box-shadow:0 18px 45px rgba(0,0,0,.18)!important;
+}
+.portfolio-filter button{
+  min-width:0!important;flex:1 1 0!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;
+  gap:3px!important;padding:12px 15px!important;border:1px solid transparent!important;border-radius:14px!important;
+  color:rgba(255,255,255,.68)!important;background:transparent!important;text-align:left!important;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease!important;
+}
+.portfolio-filter button span{font:800 .78rem Inter,sans-serif;letter-spacing:.01em}
+.portfolio-filter button small{font:600 .62rem Inter,sans-serif;color:rgba(255,255,255,.36);white-space:nowrap}
+.portfolio-filter button:hover{transform:translateY(-1px);color:#fff!important;background:rgba(255,255,255,.055)!important;border-color:rgba(255,255,255,.08)!important}
+.portfolio-filter button.active{color:#111!important;background:#fff!important;border-color:#fff!important;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.portfolio-filter button.active small{color:#676772!important}
+.tag-row .tag{min-width:max-content}
+@media(max-width:767px){
+  .header{min-height:82px!important;height:82px!important;padding-inline:18px!important}
+  .header .logo{width:132px!important;height:74px!important;flex-basis:132px!important}
+  .header .logo img{width:132px!important;height:88px!important;max-width:none!important;object-position:center 54%!important}
+  .subnav{top:82px!important}
+  .portfolio-filter{top:82px!important;width:calc(100% - 24px)!important;margin:0 12px!important;overflow-x:auto!important;justify-content:flex-start!important;border-radius:16px!important}
+  .portfolio-filter button{flex:0 0 auto!important;min-width:132px!important;padding:10px 12px!important}
+  .portfolio-filter button small{font-size:.58rem}
+}
+
+/* V5 */
+.header{min-height:84px!important;height:84px!important;background:rgba(10,10,15,.97)!important;border-bottom:1px solid rgba(255,255,255,.075)!important;box-shadow:0 8px 28px rgba(0,0,0,.18)!important}.header::after{display:none!important}.header .logo{width:158px!important;height:58px!important;flex:0 0 158px!important;padding:0!important;margin:0!important;border-radius:0!important;overflow:hidden!important}.header .logo img{width:158px!important;height:76px!important;max-width:none!important;object-fit:cover!important;object-position:center 53%!important;transform:none!important}.subnav,.portfolio-filter{top:84px!important}.systems-examples{grid-template-columns:repeat(2,minmax(0,1fr))!important}.systems-examples .feature{min-height:245px}.systems-stack{margin-top:34px!important}@media(max-width:767px){.header{min-height:70px!important;height:70px!important;padding-inline:16px!important}.header .logo{width:124px!important;height:48px!important;flex-basis:124px!important}.header .logo img{width:124px!important;height:62px!important}.subnav,.portfolio-filter{top:70px!important}.systems-examples{display:grid!important;grid-template-columns:1fr!important;overflow:visible!important}.systems-examples .feature{width:100%!important;min-width:0!important;min-height:0!important}}
+
+
+
+/* ===== BRAND / HERO CLEAN RESET ===== */
+/* One source of truth for header, footer, orbit and the portfolio color line. */
+.header{
+  min-height:86px!important;
+  height:86px!important;
+  padding:0 clamp(18px,4vw,58px)!important;
+  background:#111117!important;
+  border-bottom:1px solid rgba(255,255,255,.09)!important;
+  box-shadow:0 8px 26px rgba(0,0,0,.16)!important;
+}
+.header::after{display:none!important}
+.header .logo,.footer .logo{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:66px!important;
+  padding:0!important;
+  margin:0!important;
+  background:none!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:visible!important;
+  line-height:1!important;
+  text-decoration:none!important;
+  transform:none!important;
+  transition:opacity .18s ease!important;
+}
+.header .logo:hover,.footer .logo:hover{opacity:.92!important;transform:none!important;filter:none!important}
+.logo .brand-hat{
+  display:block!important;
+  width:118px!important;
+  height:auto!important;
+  flex:0 0 auto!important;
+  object-fit:contain!important;
+  transform:none!important;
+  filter:none!important;
+  pointer-events:none!important;
+}
+.logo .brand-word{
+  display:inline-flex!important;
+  align-items:center!important;
+  white-space:nowrap!important;
+  color:#f5f5f7!important;
+  font-family:Manrope,Inter,Arial,sans-serif!important;
+  font-size:20px!important;
+  font-weight:600!important;
+  letter-spacing:.18em!important;
+  line-height:1!important;
+  text-shadow:0 2px 8px rgba(255,255,255,.12)!important;
+}
+.logo .brand-word .brand-a{
+  position:relative!important;
+  color:#f2b91e!important;
+  margin-inline:-.01em .01em!important;
+}
+.logo .brand-word .brand-a::before{
+  content:"✦";
+  position:absolute;
+  left:50%;
+  top:-.72em;
+  transform:translateX(-50%);
+  font-size:.46em;
+  color:#ffd45d;
+  text-shadow:0 0 9px rgba(255,197,49,.55);
+}
+.footer .logo{height:auto!important;margin:0!important}
+.footer .logo .brand-hat{width:132px!important}
+.footer .logo .brand-word{font-size:22px!important}
+.subnav,.portfolio-filter{top:86px!important}
+
+/* Orbit uses only the previous/original symbol artwork. */
+body[data-page="inicio"] .orbit-core{
+  width:132px!important;
+  height:132px!important;
+  padding:0!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  background:#111526!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.28),0 0 0 10px rgba(113,75,246,.04)!important;
+}
+body[data-page="inicio"] .orbit-core img{
+  display:block!important;
+  width:92%!important;
+  height:92%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:auto!important;
+  animation:brand-orbit-breathe 3.6s ease-in-out infinite!important;
+  transform-origin:center!important;
+}
+@keyframes brand-orbit-breathe{
+  0%,100%{transform:scale(.95) rotate(-1deg)}
+  50%{transform:scale(1.03) rotate(1deg)}
+}
+
+/* Portfolio: always visible; only the color itself moves. */
+.portfolio-hero h1{opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important}
+.portfolio-hero .magic-text{
+  display:inline!important;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+  filter:none!important;
+  color:transparent!important;
+  -webkit-text-fill-color:transparent!important;
+  background-image:linear-gradient(90deg,#7448ff 0%,#2f76ff 18%,#2bc6ef 34%,#b14cff 50%,#ff4ba8 66%,#ffc83d 82%,#7448ff 100%)!important;
+  background-size:260% 100%!important;
+  background-position:0% 50%!important;
+  background-clip:text!important;
+  -webkit-background-clip:text!important;
+  animation:magic-color-sweep 2.9s linear infinite!important;
+  will-change:background-position!important;
+}
+@keyframes magic-color-sweep{
+  from{background-position:0% 50%}
+  to{background-position:260% 50%}
+}
+
+@media(max-width:900px){
+  .header .logo{gap:6px!important}
+  .logo .brand-hat{width:102px!important}
+  .logo .brand-word{font-size:17px!important;letter-spacing:.14em!important}
+}
+@media(max-width:767px){
+  .header{height:78px!important;min-height:78px!important;padding:0 12px!important}
+  .header .logo{height:62px!important;gap:5px!important}
+  .header .logo .brand-hat{width:108px!important}
+  .header .logo .brand-word{font-size:17px!important;letter-spacing:.10em!important}
+  .footer .logo{justify-content:center!important;margin-inline:auto!important}
+  .footer .logo .brand-hat{width:118px!important}
+  .footer .logo .brand-word{font-size:19px!important;letter-spacing:.12em!important}
+  .subnav,.portfolio-filter{top:78px!important}
+  body[data-page="inicio"] .orbit-core{width:116px!important;height:116px!important}
+}
+@media(max-width:390px){
+  .header .logo .brand-hat{width:92px!important}
+  .header .logo .brand-word{font-size:15px!important;letter-spacing:.08em!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .portfolio-hero .magic-text{animation:magic-color-sweep 5.5s linear infinite!important}
+  body[data-page="inicio"] .orbit-core img{animation:none!important}
+}
+
+/* ===== V11 LOGO: supplied artwork, no reconstruction/crop ===== */
+.header{height:90px!important;min-height:90px!important;padding:0 clamp(18px,4vw,64px)!important;align-items:center!important;overflow:visible!important}
+.header .logo{display:block!important;width:clamp(300px,26vw,420px)!important;height:auto!important;flex:0 0 auto!important;padding:0!important;margin:0!important;line-height:0!important;overflow:visible!important;background:none!important;border:0!important;transform:none!important}
+.header .logo:hover{transform:none!important}
+.header .logo img{display:block!important;width:100%!important;height:auto!important;max-width:none!important;object-fit:contain!important;object-position:center!important;transform:none!important;filter:none!important}
+.footer .logo,.site-footer .logo,.footer-logo{display:inline-block!important;width:min(420px,86vw)!important;height:auto!important;padding:0!important;line-height:0!important;overflow:visible!important;transform:none!important}
+.footer .logo img,.site-footer .logo img,.footer-logo img{display:block!important;width:100%!important;height:auto!important;object-fit:contain!important;transform:none!important;filter:none!important}
+.subnav,.portfolio-filter{top:90px!important}
+@media(max-width:767px){.header{height:72px!important;min-height:72px!important;padding:0 14px!important}.header .logo{width:220px!important}.subnav,.portfolio-filter{top:72px!important}}
+
+
+/* ===== V12 — HEADER REFINADO + FORMA E FUNÇÃO ANIMADO NO HTML ===== */
+.header{
+  height:76px!important;
+  min-height:76px!important;
+  padding:0 max(4vw,calc((100vw - var(--f-wide))/2))!important;
+  display:flex!important;
+  align-items:center!important;
+  background:
+    linear-gradient(180deg,rgba(20,20,27,.97) 0%,rgba(13,13,18,.985) 100%)!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:0 12px 36px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.035)!important;
+  backdrop-filter:blur(18px)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+  overflow:visible!important;
+}
+.header::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  left:max(4vw,calc((100vw - var(--f-wide))/2))!important;
+  right:max(4vw,calc((100vw - var(--f-wide))/2))!important;
+  bottom:-1px!important;
+  height:1px!important;
+  background:linear-gradient(90deg,transparent 0%,rgba(121,67,255,.35) 24%,rgba(244,190,54,.55) 50%,rgba(121,67,255,.32) 76%,transparent 100%)!important;
+  pointer-events:none!important;
+}
+.header .logo{
+  width:230px!important;
+  height:auto!important;
+  flex:0 0 230px!important;
+  display:block!important;
+  line-height:0!important;
+  padding:0!important;
+  margin:0!important;
+  background:none!important;
+  border:0!important;
+  overflow:visible!important;
+  transform:none!important;
+}
+.header .logo img{
+  display:block!important;
+  width:230px!important;
+  height:auto!important;
+  max-width:230px!important;
+  object-fit:contain!important;
+  object-position:left center!important;
+  transform:none!important;
+  filter:none!important;
+}
+.header .logo:hover{transform:none!important;opacity:.94!important}
+.nav{align-items:center!important}
+.nav a{padding-block:9px!important}
+.nav-cta{padding:10px 17px!important;border-radius:999px!important}
+.subnav,.portfolio-filter{top:76px!important}
+
+/* A cor agora anima em cada letra REAL do HTML. */
+.portfolio-hero .magic-text{
+  display:inline-flex!important;
+  align-items:baseline!important;
+  white-space:nowrap!important;
+  color:inherit!important;
+  -webkit-text-fill-color:currentColor!important;
+  background:none!important;
+  animation:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+.portfolio-hero .magic-letter{
+  display:inline-block!important;
+  color:#7c4dff!important;
+  -webkit-text-fill-color:currentColor!important;
+  animation:fantastic-letter-color 3.4s ease-in-out infinite!important;
+  will-change:color,text-shadow!important;
+}
+.portfolio-hero .magic-letter.space{width:.27em!important}
+.portfolio-hero .magic-letter:nth-child(1){animation-delay:-0.00s!important}
+.portfolio-hero .magic-letter:nth-child(2){animation-delay:-0.18s!important}
+.portfolio-hero .magic-letter:nth-child(3){animation-delay:-0.36s!important}
+.portfolio-hero .magic-letter:nth-child(4){animation-delay:-0.54s!important}
+.portfolio-hero .magic-letter:nth-child(5){animation-delay:-0.72s!important}
+.portfolio-hero .magic-letter:nth-child(6){animation-delay:-0.90s!important}
+.portfolio-hero .magic-letter:nth-child(7){animation-delay:-1.08s!important}
+.portfolio-hero .magic-letter:nth-child(8){animation-delay:-1.26s!important}
+.portfolio-hero .magic-letter:nth-child(9){animation-delay:-1.44s!important}
+.portfolio-hero .magic-letter:nth-child(10){animation-delay:-1.62s!important}
+.portfolio-hero .magic-letter:nth-child(11){animation-delay:-1.80s!important}
+.portfolio-hero .magic-letter:nth-child(12){animation-delay:-1.98s!important}
+.portfolio-hero .magic-letter:nth-child(13){animation-delay:-2.16s!important}
+.portfolio-hero .magic-letter:nth-child(14){animation-delay:-2.34s!important}
+@keyframes fantastic-letter-color{
+  0%,100%{color:#7648ff;text-shadow:0 0 0 rgba(118,72,255,0)}
+  22%{color:#3287ff;text-shadow:0 0 18px rgba(50,135,255,.16)}
+  45%{color:#cf48ed;text-shadow:0 0 18px rgba(207,72,237,.16)}
+  68%{color:#ff5d9d;text-shadow:0 0 18px rgba(255,93,157,.14)}
+  84%{color:#f5bd38;text-shadow:0 0 19px rgba(245,189,56,.18)}
+}
+
+@media(max-width:767px){
+  .header{height:68px!important;min-height:68px!important;padding:0 14px!important}
+  .header::after{left:14px!important;right:14px!important}
+  .header .logo{width:185px!important;flex-basis:185px!important}
+  .header .logo img{width:185px!important;max-width:185px!important}
+  .subnav,.portfolio-filter{top:68px!important}
+  .portfolio-hero .magic-text{white-space:normal!important;flex-wrap:wrap!important}
+}
